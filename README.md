@@ -107,7 +107,7 @@ src/
 - **Angelo Emmanuel Flores Montes**
 - **Oscar Gomez Vazquez**
 - **Esteban Santos Angulo**
-- **Arath Daniel Noriega Domíngue**
+- **Arath Daniel Noriega Domínguez**
 - **Enrique Vega Mayer**
 
 ## 🚀 Despliegue
