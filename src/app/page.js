@@ -8,6 +8,7 @@ export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [bestsellers, setBestsellers] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
     // Reveal animation delay
@@ -35,15 +36,24 @@ export default function Home() {
     document.querySelectorAll('.scroll-animate').forEach((el) => observer.observe(el));
 
     // Observe again after fetching bestsellers
-    fetch('/api/products')
-      .then(res => res.json())
+    console.log('Iniciando fetch de productos...');
+    fetch('http://localhost:3000/api/products')
+      .then(res => {
+        console.log('Respuesta del fetch:', res.status, res.statusText);
+        return res.json();
+      })
       .then(data => {
+        console.log('Productos cargados:', data);
         setBestsellers(data.slice(0, 4));
+        setLoadingProducts(false);
         setTimeout(() => {
           document.querySelectorAll('.scroll-animate').forEach((el) => observer.observe(el));
         }, 100);
       })
-      .catch(console.error);
+      .catch(error => {
+        console.error('Error cargando productos:', error);
+        setLoadingProducts(false);
+      });
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -212,19 +222,29 @@ export default function Home() {
           </div>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '32px' }}>
-            {bestsellers.map((product, i) => (
-              <div key={product.id} className="scroll-animate fade-in-up" style={{ animationDelay: `${i * 0.1}s` }}>
-                <Link href="/productos" style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
-                  <div style={{ background: 'var(--surface)', borderRadius: '16px', overflow: 'hidden', padding: '16px', border: '1px solid var(--surface-border)', transition: 'transform 0.3s, box-shadow 0.3s' }} className="hover-scale">
-                    <div style={{ height: '240px', borderRadius: '12px', overflow: 'hidden', marginBottom: '16px', position: 'relative' }}>
-                      <img src={product.image} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </div>
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: 700 }}>{product.name}</h3>
-                    <p style={{ color: 'var(--primary)', fontWeight: 800, fontSize: '1.2rem', marginTop: '8px' }}>${product.price.toFixed(2)}</p>
-                  </div>
-                </Link>
+            {loadingProducts ? (
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
+                <div>Cargando productos...</div>
               </div>
-            ))}
+            ) : bestsellers.length === 0 ? (
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
+                <div>No se pudieron cargar los productos</div>
+              </div>
+            ) : (
+              bestsellers.map((product, i) => (
+                <div key={product.id} className="scroll-animate fade-in-up" style={{ animationDelay: `${i * 0.1}s` }}>
+                  <Link href="/productos" style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
+                    <div style={{ background: 'var(--surface)', borderRadius: '16px', overflow: 'hidden', padding: '16px', border: '1px solid var(--surface-border)', transition: 'transform 0.3s, box-shadow 0.3s' }} className="hover-scale">
+                      <div style={{ height: '240px', borderRadius: '12px', overflow: 'hidden', marginBottom: '16px', position: 'relative' }}>
+                        <img src={product.image} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      </div>
+                      <h3 style={{ fontSize: '1.3rem', fontWeight: 700 }}>{product.name}</h3>
+                      <p style={{ color: 'var(--primary)', fontWeight: 800, fontSize: '1.2rem', marginTop: '8px' }}>${product.price.toFixed(2)}</p>
+                    </div>
+                  </Link>
+                </div>
+              ))
+            )}
           </div>
           <div style={{ textAlign: 'center', marginTop: '48px' }}>
             <Link href="/productos" className="btn-secondary" style={{ padding: '16px 32px', fontSize: '1.1rem' }}>Ver Todos Los Productos</Link>

@@ -9,6 +9,12 @@ export function AppProvider({ children }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authView, setAuthView] = useState('login');
+  const [loginData, setLoginData] = useState({ correo: '', contrasena: '' });
+  const [registerData, setRegisterData] = useState({ nombre: '', correo: '', contrasena: '' });
+  const [recoverEmail, setRecoverEmail] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Load from local storage on mount
@@ -60,9 +66,72 @@ export function AppProvider({ children }) {
     });
   };
 
-  const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+  const login = async (userData) => {
+    setIsLoading(true);
+    setAuthError('');
+    
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: userData.correo,
+          password: userData.contrasena,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setUser(data.user);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        setIsAuthModalOpen(false);
+        setLoginData({ correo: '', contrasena: '' });
+      } else {
+        setAuthError(data.error || 'Error al iniciar sesión');
+      }
+    } catch (error) {
+      setAuthError('Error de conexión. Inténtalo de nuevo.');
+      console.error('Login error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const register = async (userData) => {
+    setIsLoading(true);
+    setAuthError('');
+    
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: userData.nombre,
+          email: userData.correo,
+          password: userData.contrasena,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setAuthView('login');
+        setRegisterData({ nombre: '', correo: '', contrasena: '' });
+        setAuthError('Cuenta creada exitosamente. Ahora puedes iniciar sesión.');
+      } else {
+        setAuthError(data.error || 'Error al crear la cuenta');
+      }
+    } catch (error) {
+      setAuthError('Error de conexión. Inténtalo de nuevo.');
+      console.error('Register error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const logout = () => {
@@ -74,8 +143,14 @@ export function AppProvider({ children }) {
     <AppContext.Provider value={{
       cart, addToCart, removeFromCart, updateQuantity,
       isCartOpen, setIsCartOpen,
-      user, login, logout,
-      isAuthModalOpen, setIsAuthModalOpen
+      user, login, register, logout,
+      isAuthModalOpen, setIsAuthModalOpen,
+      authView, setAuthView,
+      loginData, setLoginData,
+      registerData, setRegisterData,
+      recoverEmail, setRecoverEmail,
+      authError, setAuthError,
+      isLoading
     }}>
       {children}
     </AppContext.Provider>
