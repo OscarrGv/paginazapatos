@@ -186,6 +186,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section style={{ padding: '60px 24px', background: 'rgba(255,255,255,0.95)', borderBottom: '1px solid rgba(212,175,55,0.15)' }}>
+        <div className="container scroll-animate fade-in-up" style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <h2 className="team-title" style={{ fontSize: '2.8rem', fontWeight: 800 }}>Equipo de Desarrollo</h2>
+          <p style={{ color: 'rgba(26,26,26,0.8)', fontSize: '1.1rem', maxWidth: '680px', margin: '16px auto 0' }}>
+            Proyecto creado y presentado por el equipo encargado de la propuesta de experiencia premium.
+          </p>
+          <ul className="team-list">
+            <li>Angelo Emmanuel Flores Montes</li>
+            <li>Oscar Gomez Vazquez</li>
+            <li>Esteban Santos Angulo</li>
+            <li>Arath Daniel Noriega Domíngue</li>
+            <li>Enrique Vega Mayer</li>
+          </ul>
+        </div>
+      </section>
+
       {/* Bestsellers Section */}
       <section style={{ padding: '80px 24px', background: 'var(--background)' }}>
         <div className="container">
