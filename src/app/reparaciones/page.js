@@ -14,10 +14,21 @@ export default function ReparacionesPage() {
     fetch('/api/services')
       .then(res => res.json())
       .then(data => {
-        setServices(data);
+        if (data.error) {
+          console.error("API Error:", data.error);
+          setServices([]);
+        } else if (Array.isArray(data)) {
+          setServices(data);
+        } else {
+          setServices([]);
+        }
         setLoading(false);
       })
-      .catch(console.error);
+      .catch(err => {
+        console.error(err);
+        setServices([]);
+        setLoading(false);
+      });
   }, []);
 
   const toggleService = (id) => {
