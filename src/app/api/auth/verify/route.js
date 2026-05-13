@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import db from '@/lib/db';
+import sql from '@/lib/db';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -10,14 +10,16 @@ export async function GET(request) {
   }
 
   try {
-    const user = db.prepare('SELECT * FROM users WHERE verification_token = ?').get(token);
+    const users = await sql`SELECT * FROM users WHERE verification_token = ${token}`;
 
-    if (!user) {
+    if (users.length === 0) {
       return new NextResponse('Token inválido o expirado.', { status: 400 });
     }
 
+    const user = users[0];
+
     // Marcar como verificado y limpiar el token
-    db.prepare('UPDATE users SET is_verified = 1, verification_token = NULL WHERE id = ?').run(user.id);
+    await sql`UPDATE users SET is_verified = 1, verification_token = NULL WHERE id = ${user.id}`;
 
     // Redirigir al usuario al inicio con un mensaje
     return new NextResponse(`

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import db from '@/lib/db';
+import sql from '@/lib/db';
 import bcrypt from 'bcryptjs';
 
 export async function POST(request) {
@@ -10,12 +10,13 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Email y contraseña son obligatorios' }, { status: 400 });
     }
 
-    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+    const users = await sql`SELECT * FROM users WHERE email = ${email}`;
 
-    if (!user) {
+    if (users.length === 0) {
       return NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 });
     }
 
+    const user = users[0];
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {

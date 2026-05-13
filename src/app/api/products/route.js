@@ -1,10 +1,12 @@
 // Force reload
 import { NextResponse } from 'next/server';
-import db from '@/lib/db';
+import sql, { initDB } from '@/lib/db';
 
 export async function GET() {
   try {
-    const products = db.prepare('SELECT * FROM products').all();
+    try { await initDB(); } catch (e) { console.warn("DB init skipped:", e.message); }
+
+    const products = await sql`SELECT * FROM products`;
     
     // Transform sizes from string to array
     const formattedProducts = products.map(product => ({
@@ -14,6 +16,6 @@ export async function GET() {
 
     return NextResponse.json(formattedProducts);
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching products' }, { status: 500 });
+    return NextResponse.json({ error: 'Error fetching products: ' + error.message }, { status: 500 });
   }
 }

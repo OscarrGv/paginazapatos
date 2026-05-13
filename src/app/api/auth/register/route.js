@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import db from '@/lib/db';
+import sql from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
@@ -13,9 +13,9 @@ export async function POST(request) {
     }
 
     // Check if user exists
-    const existingUser = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+    const existingUsers = await sql`SELECT * FROM users WHERE email = ${email}`;
     
-    if (existingUser) {
+    if (existingUsers.length > 0) {
       return NextResponse.json({ error: 'El correo electrónico ya está registrado' }, { status: 400 });
     }
 
@@ -25,8 +25,7 @@ export async function POST(request) {
     const verificationToken = crypto.randomBytes(32).toString('hex');
 
     // Insert user with verification token
-    const insert = db.prepare('INSERT INTO users (name, email, password, is_verified, verification_token) VALUES (?, ?, ?, 0, ?)');
-    const result = insert.run(name, email, hashedPassword, verificationToken);
+    await sql`INSERT INTO users (name, email, password, is_verified, verification_token) VALUES (${name}, ${email}, ${hashedPassword}, 0, ${verificationToken})`;
 
     // Configurar Nodemailer (Asegúrate de agregar EMAIL_USER y EMAIL_PASS a tu .env)
     const transporter = nodemailer.createTransport({
