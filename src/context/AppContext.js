@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect } from 'react';
+import { SessionProvider, signIn, signOut, useSession } from 'next-auth/react';
 
 const AppContext = createContext();
 
@@ -71,26 +72,22 @@ export function AppProvider({ children }) {
     setAuthError('');
     
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: userData.correo,
-          password: userData.contrasena,
-        }),
+      // Use NextAuth signIn
+      const result = await signIn('credentials', {
+        redirect: false,
+        email: userData.correo,
+        password: userData.contrasena
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setUser(data.user);
-        localStorage.setItem('user', JSON.stringify(data.user));
+      if (result?.error) {
+        setAuthError(result.error === 'CredentialsSignin' ? 'Credenciales inválidas' : 'Error al iniciar sesión');
+      } else {
+        // We will let NextAuth handle the session, but we can also set the local user
+        const localUser = { email: userData.correo, name: userData.correo.split('@')[0] };
+        setUser(localUser);
+        localStorage.setItem('user', JSON.stringify(localUser));
         setIsAuthModalOpen(false);
         setLoginData({ correo: '', contrasena: '' });
-      } else {
-        setAuthError(data.error || 'Error al iniciar sesión');
       }
     } catch (error) {
       setAuthError('Error de conexión. Inténtalo de nuevo.');
@@ -120,9 +117,23 @@ export function AppProvider({ children }) {
       const data = await response.json();
 
       if (response.ok) {
-        setAuthView('login');
+        // Log them in immediately via next-auth
+        const result = await signIn('credentials', {
+          redirect: false,
+          email: userData.correo,
+          password: userData.contrasena
+        });
+        
+        if (!result?.error) {
+          const localUser = data.user || { email: userData.correo, name: userData.nombre };
+          setUser(localUser);
+          localStorage.setItem('user', JSON.stringify(localUser));
+          setIsAuthModalOpen(false);
+        } else {
+          setAuthView('login');
+          setAuthError('Cuenta creada. Inicia sesión manualmente.');
+        }
         setRegisterData({ nombre: '', correo: '', contrasena: '' });
-        setAuthError('Cuenta creada exitosamente. Ahora puedes iniciar sesión.');
       } else {
         setAuthError(data.error || 'Error al crear la cuenta');
       }
@@ -134,27 +145,46 @@ export function AppProvider({ children }) {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     setUser(null);
     localStorage.removeItem('user');
+    await signOut({ redirect: false });
   };
 
   return (
-    <AppContext.Provider value={{
-      cart, addToCart, removeFromCart, updateQuantity,
-      isCartOpen, setIsCartOpen,
-      user, login, register, logout,
-      isAuthModalOpen, setIsAuthModalOpen,
-      authView, setAuthView,
-      loginData, setLoginData,
-      registerData, setRegisterData,
-      recoverEmail, setRecoverEmail,
-      authError, setAuthError,
-      isLoading
-    }}>
-      {children}
-    </AppContext.Provider>
+    <SessionProvider>
+      <AppContext.Provider value={{
+        cart, addToCart, removeFromCart, updateQuantity,
+        isCartOpen, setIsCartOpen,
+        user, setUser, login, register, logout,
+        isAuthModalOpen, setIsAuthModalOpen,
+        authView, setAuthView,
+        loginData, setLoginData,
+        registerData, setRegisterData,
+        recoverEmail, setRecoverEmail,
+        authError, setAuthError,
+        isLoading
+      }}>
+        <SessionSync />
+        {children}
+      </AppContext.Provider>
+    </SessionProvider>
   );
+}
+
+// Small component to sync NextAuth session with our custom user state
+function SessionSync() {
+  const { data: session } = useSession();
+  const { setUser } = useAppContext();
+  
+  useEffect(() => {
+    if (session?.user) {
+      setUser(session.user);
+      localStorage.setItem('user', JSON.stringify(session.user));
+    }
+  }, [session, setUser]);
+  
+  return null;
 }
 
 export function useAppContext() {

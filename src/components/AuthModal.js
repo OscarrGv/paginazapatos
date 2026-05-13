@@ -3,6 +3,7 @@
 import { useAppContext } from '@/context/AppContext';
 import { X } from 'lucide-react';
 import { useState } from 'react';
+import { signIn } from 'next-auth/react';
 
 export default function AuthModal() {
   const { isAuthModalOpen, setIsAuthModalOpen, login } = useAppContext();
@@ -109,7 +110,7 @@ export default function AuthModal() {
           
           <button 
             type="button" 
-            onClick={() => alert("Inicio de sesión con Google próximamente")}
+            onClick={() => signIn('google')}
             style={{ 
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
               padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)',
@@ -130,7 +131,7 @@ export default function AuthModal() {
           
           <button 
             type="button" 
-            onClick={() => alert("Inicio de sesión con Facebook próximamente")}
+            onClick={() => signIn('facebook')}
             style={{ 
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
               padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)',
