@@ -1,6 +1,7 @@
-// Force reload
 import { NextResponse } from 'next/server';
 import sql, { initDB } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
