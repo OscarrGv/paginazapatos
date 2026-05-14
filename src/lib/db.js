@@ -19,7 +19,7 @@ export const PRODUCT_SEED = [
   { name: 'Leather Heritage', price: 159.99, image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-4.0.3&w=800&q=80', description: 'Cuero genuino hecho a mano con costuras premium.', sizes: '9,10,11,12' },
   { name: 'Golden Mids', price: 114.99, image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&w=800&q=80', description: 'Silueta de media bota con estética retro moderna.', sizes: '7,8,9,10' },
   { name: 'Diamond White Low', price: 95.99, image: 'https://images.unsplash.com/photo-1518002171953-a080ee817e1f?ixlib=rb-4.0.3&w=800&q=80', description: 'Zapatillas de perfil bajo color diamante puro.', sizes: '6,7,8,9,10,11' },
-  { name: 'Street Prestige', price: 144.99, image: 'https://images.unsplash.com/photo-1584735174965-48c48d7028a9?ixlib=rb-4.0.3&w=800&q=80', description: 'Diseño audaz con plataforma y suela translúcida.', sizes: '7,8,9,10' },
+  { name: 'Street Prestige', price: 144.99, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80', description: 'Diseño audaz con plataforma y suela translúcida.', sizes: '7,8,9,10' },
   { name: 'Velvet Gold High', price: 179.99, image: 'https://images.unsplash.com/photo-1534653299134-96a171b61581?ixlib=rb-4.0.3&w=800&q=80', description: 'Botines de terciopelo premium con broches de oro.', sizes: '8,9,10,11,12' }
 ];
 
@@ -174,6 +174,12 @@ export async function initDB() {
       for (const service of SERVICE_SEED) {
         await sql`INSERT INTO services (name, description, price) VALUES (${service.name}, ${service.description}, ${service.price})`;
       }
+    }
+
+    // Keep catalog image URLs synchronized for known products.
+    const streetPrestige = PRODUCT_SEED.find((product) => product.name === 'Street Prestige');
+    if (streetPrestige) {
+      await sql`UPDATE products SET image = ${streetPrestige.image} WHERE name = 'Street Prestige'`;
     }
   })();
 
