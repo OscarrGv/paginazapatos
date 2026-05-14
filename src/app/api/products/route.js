@@ -1,21 +1,40 @@
 // Force reload
 import { NextResponse } from 'next/server';
-import sql, { initDB } from '@/lib/db';
+import sql, { initDB, PRODUCT_SEED } from '@/lib/db';
+
+const fallbackProducts = PRODUCT_SEED.map((product, index) => ({
+  id: index + 1,
+  name: product.name,
+  price: product.price,
+  image: product.image,
+  description: product.description,
+  sizes: product.sizes.split(',').map((size) => parseInt(size.trim(), 10))
+}));
+
+function formatProducts(products) {
+  return products.map((product) => ({
+    ...product,
+    sizes: Array.isArray(product.sizes)
+      ? product.sizes
+      : String(product.sizes)
+          .split(',')
+          .map((size) => parseInt(size.trim(), 10))
+  }));
+}
 
 export async function GET() {
   try {
     await initDB();
 
     const products = await sql`SELECT * FROM products`;
-    
-    // Transform sizes from string to array
-    const formattedProducts = products.map(product => ({
-      ...product,
-      sizes: product.sizes.split(',').map(s => parseInt(s.trim()))
-    }));
 
-    return NextResponse.json(formattedProducts);
+    if (!Array.isArray(products) || products.length === 0) {
+      return NextResponse.json(fallbackProducts);
+    }
+
+    return NextResponse.json(formatProducts(products));
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching products: ' + error.message }, { status: 500 });
+    console.error('Error fetching products, usando catálogo fallback:', error);
+    return NextResponse.json(fallbackProducts);
   }
 }

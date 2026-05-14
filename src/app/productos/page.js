@@ -67,7 +67,16 @@ export default function ProductosPage() {
             >
               <div className="image-container" style={{ height: '320px', borderRadius: '12px', overflow: 'hidden', marginBottom: '24px', position: 'relative' }}>
                 <div className="product-glow"></div>
-                <img src={product.image} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', zIndex: 1, transition: 'transform 0.5s ease' }} className="product-img" />
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = '/file.svg';
+                  }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', zIndex: 1, transition: 'transform 0.5s ease' }}
+                  className="product-img"
+                />
               </div>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '8px' }}>{product.name}</h3>
               <p style={{ color: 'var(--primary)', fontWeight: 800, fontSize: '1.3rem', marginBottom: '24px', marginTop: 'auto' }}>${product.price.toFixed(2)}</p>
@@ -138,7 +147,15 @@ function ProductDetail({ product, onBack }) {
         <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '300px', height: '300px', background: 'rgba(212, 175, 55, 0.1)', filter: 'blur(80px)', borderRadius: '50%', zIndex: 0 }}></div>
         
         <div style={{ borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, position: 'relative', overflow: 'hidden', minHeight: '400px' }}>
-          <img src={product.image} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
+          <img
+            src={product.image}
+            alt={product.name}
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = '/file.svg';
+            }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }}
+          />
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', zIndex: 1 }}>
