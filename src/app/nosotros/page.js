@@ -109,9 +109,9 @@ export default function Nosotros() {
               </div>
               <div style={{ order: 1 }}>
                  <img 
-                  src="https://images.unsplash.com/photo-1595991209266-5e04278dc71f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                  alt="Manos artesanas" 
-                  style={{ width: '100%', height: 'auto', borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', filter: 'sepia(0.2) contrast(1.1)' }}
+                  src="/artesana-pintando.jpg" 
+                  alt="Artesana pintando pieza de madera" 
+                  style={{ width: '100%', height: 'auto', borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}
                  />
               </div>
             </div>
