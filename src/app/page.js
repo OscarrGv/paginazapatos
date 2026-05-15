@@ -154,8 +154,8 @@ export default function Home() {
             <Link href="/productos" className="btn-primary" style={{ padding: '22px 50px', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '12px', boxShadow: '0 20px 40px rgba(212,175,55,0.4)' }}>
               Explorar Colección <ChevronRight size={20} />
             </Link>
-            <Link href="/reparaciones" className="btn-glass" style={{ padding: '22px 50px', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '12px' }}>
-              Servicio de Restauración
+            <Link href="/nosotros" className="btn-glass" style={{ padding: '22px 50px', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '12px', color: 'white', border: '1px solid rgba(255,255,255,0.4)', borderRadius: '9999px' }}>
+              Quiénes Somos
             </Link>
           </div>
         </div>
