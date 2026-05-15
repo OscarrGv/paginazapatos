@@ -9,47 +9,34 @@ export default function Nosotros() {
       
       {/* Hero Section */}
       <section style={{
-        minHeight: '70vh', display: 'flex', alignItems: 'center',
-        padding: '120px 5%', position: 'relative', overflow: 'hidden',
-        background: 'linear-gradient(135deg, var(--foreground) 0%, #0a0a0a 100%)'
+        minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '120px 24px', position: 'relative', overflow: 'hidden',
+        backgroundImage: 'url(/itver.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed'
       }}>
-        {/* Subtle decorative grid/glow */}
-        <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%)', borderRadius: '50%' }} />
+        {/* Dark overlay for readability */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(10,10,10,1) 100%)' }} />
         
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '60px', width: '100%', maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
-          
-          <div className="animate-slide-right" style={{ flex: '1 1 500px' }}>
+        <div className="animate-slide-right" style={{ 
+            display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
+            maxWidth: '900px', position: 'relative', zIndex: 2,
+            background: 'rgba(20, 20, 20, 0.4)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+            padding: '60px 40px', borderRadius: '32px', border: '1px solid rgba(212,175,55,0.3)', boxShadow: '0 30px 60px rgba(0,0,0,0.5)'
+        }}>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 28px', borderRadius: '99px',
-              background: 'rgba(212, 175, 55, 0.1)', color: 'var(--primary)', fontWeight: 700, fontSize: '0.9rem', 
-              border: '1px solid rgba(212,175,55,0.4)', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '24px'
+              background: 'rgba(212, 175, 55, 0.2)', color: 'var(--primary)', fontWeight: 800, fontSize: '0.9rem', 
+              border: '1px solid rgba(212,175,55,0.5)', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '32px'
             }}>
-              <Users size={14} /> Sobre Nosotros
+              <Users size={16} /> Orgullo ITVER
             </div>
             
-            <h1 style={{ fontSize: 'clamp(3.5rem, 6vw, 5.5rem)', fontWeight: 900, lineHeight: 1.1, marginBottom: '24px' }}>
-              El lado <br/><span className="text-gradient">Humano</span> del Diseño.
+            <h1 style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', fontWeight: 900, lineHeight: 1.1, marginBottom: '24px', textShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+              El lado <span className="text-gradient">Humano</span><br/> del Diseño.
             </h1>
             
-            <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, maxWidth: '500px' }}>
-              Somos estudiantes con la visión de llevar el calzado artesanal mexicano hacia nuevos horizontes, dándole el valor y reconocimiento que realmente merece en el mercado global.
+            <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.9)', lineHeight: 1.6, maxWidth: '700px', fontWeight: 500, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
+              Somos estudiantes del Tecnológico de Veracruz con la visión de llevar el calzado artesanal mexicano hacia nuevos horizontes, dándole el valor y reconocimiento que realmente merece en el mercado global.
             </p>
-          </div>
-
-          <div className="animate-slide-left" style={{ flex: '1 1 400px', position: 'relative' }}>
-            <div style={{ position: 'relative', width: '100%', paddingBottom: '110%', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}>
-              <img 
-                src="/huarache-clasico.png" 
-                alt="Calzado Artesanal" 
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'sepia(0.2) contrast(1.1)' }} 
-              />
-              <div style={{ position: 'absolute', inset: 0, border: '2px solid rgba(212,175,55,0.3)', borderRadius: '24px', transform: 'scale(0.95)' }} />
-            </div>
-            <div className="animate-bounce-slow" style={{ position: 'absolute', bottom: '-20px', left: '-20px', background: 'var(--surface)', padding: '24px', borderRadius: '16px', border: '1px solid var(--surface-border)', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--primary)' }}>ITV</div>
-              <div style={{ fontSize: '0.9rem', color: '#aaa', fontWeight: 600 }}>Tecnológico de Veracruz</div>
-            </div>
-          </div>
         </div>
       </section>
 
