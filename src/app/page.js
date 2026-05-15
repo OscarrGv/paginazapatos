@@ -101,14 +101,13 @@ export default function Home() {
         padding: '40px 24px', textAlign: 'center', position: 'relative',
         perspective: '1000px', overflow: 'hidden'
       }}>
-        {/* Cinematic Background Video */}
+        {/* Cinematic Background Image/Video */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <video 
-            autoPlay loop muted playsInline
+          <img 
+            src="https://images.unsplash.com/photo-1580982545800-47b2bd3c5c96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+            alt="Fondo de Artesanía"
             style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.3) contrast(1.2)' }} 
-          >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-person-walking-in-leather-shoes-140-large.mp4" type="video/mp4" />
-          </video>
+          />
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%)' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 50%, rgba(10,10,10,1) 100%)' }} />
         </div>
@@ -129,15 +128,15 @@ export default function Home() {
             textTransform: 'uppercase', backdropFilter: 'blur(12px)',
             boxShadow: '0 0 20px rgba(212,175,55,0.1)'
           }}>
-            <Star size={14} fill="var(--primary)" color="var(--primary)" /> La Nueva Era del Calzado
+            <Star size={14} fill="var(--primary)" color="var(--primary)" /> Orgullo de Nuestros Artesanos
           </div>
           
           <h1 style={{ 
             fontSize: 'clamp(3.5rem, 8vw, 8rem)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', color: 'white',
             textShadow: '0 10px 30px rgba(0,0,0,0.5)'
           }}>
-            <span className="reveal-text" style={{ animationDelay: '0.8s' }}>Elegancia que</span><br/>
-            <span className="reveal-text text-gradient" style={{ animationDelay: '1s' }}>trasciende.</span>
+            <span className="reveal-text" style={{ animationDelay: '0.8s' }}>Identidad de</span><br/>
+            <span className="reveal-text text-gradient" style={{ animationDelay: '1s' }}>México al Mundo.</span>
           </h1>
           
           <p style={{ 
@@ -145,7 +144,7 @@ export default function Home() {
             opacity: isLoaded ? 1 : 0, transition: 'opacity 1s ease 1.5s',
             textShadow: '0 2px 10px rgba(0,0,0,0.5)'
           }}>
-            Redefiniendo el lujo con materiales auténticos y una artesanía que desafía el paso del tiempo. Descubre el estándar de oro.
+            Impulsamos el talento de nuestros artesanos mexicanos al mercado global, dándole identidad a su trabajo con precios justos y competitivos.
           </p>
 
           <div style={{ 
@@ -165,16 +164,16 @@ export default function Home() {
       {/* Infinite Marquee Section */}
       <section style={{ padding: '40px 0', background: 'rgba(212,175,55,0.05)', borderTop: '1px solid rgba(212,175,55,0.1)', borderBottom: '1px solid rgba(212,175,55,0.1)', overflow: 'hidden', whiteSpace: 'nowrap' }}>
         <div className="marquee-content" style={{ display: 'inline-block', color: 'var(--primary)', fontWeight: 800, fontSize: '1.5rem', letterSpacing: '4px', textTransform: 'uppercase' }}>
-          <span>PIEL AUTÉNTICA <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
+          <span>ARTESANÍA MEXICANA <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
           <span>HECHO A MANO <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
-          <span>DISEÑO EXCLUSIVO <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
-          <span>GARANTÍA VITALICIA <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
-          <span>CALIDAD EUROPEA <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
-          <span>PIEL AUTÉNTICA <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
+          <span>COMERCIO JUSTO <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
+          <span>IDENTIDAD GLOBAL <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
+          <span>SERVICIOS DE REPARACIÓN <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
+          <span>ARTESANÍA MEXICANA <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
           <span>HECHO A MANO <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
-          <span>DISEÑO EXCLUSIVO <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
-          <span>GARANTÍA VITALICIA <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
-          <span>CALIDAD EUROPEA <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
+          <span>COMERCIO JUSTO <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
+          <span>IDENTIDAD GLOBAL <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
+          <span>SERVICIOS DE REPARACIÓN <span style={{ margin: '0 30px', color: 'rgba(255,255,255,0.2)' }}>✦</span></span>
         </div>
       </section>
 
@@ -183,43 +182,28 @@ export default function Home() {
         <div className="container scroll-animate fade-in-up" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '40px', textAlign: 'center' }}>
           <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
             <div style={{ background: 'rgba(212,175,55,0.1)', padding: '20px', borderRadius: '50%' }}><Truck size={32} color="var(--primary)" /></div>
-            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Envío Internacional</h4>
-            <p style={{ opacity: 0.7 }}>A cualquier parte del mundo.</p>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Alcance Global</h4>
+            <p style={{ opacity: 0.7 }}>Llevamos nuestra cultura a todo el mundo.</p>
           </div>
           <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
             <div style={{ background: 'rgba(212,175,55,0.1)', padding: '20px', borderRadius: '50%' }}><RefreshCw size={32} color="var(--primary)" /></div>
-            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Cambios Gratuitos</h4>
-            <p style={{ opacity: 0.7 }}>Hasta 30 días después de tu compra.</p>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Restauración</h4>
+            <p style={{ opacity: 0.7 }}>Extendemos la vida útil de tus zapatos.</p>
           </div>
           <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
             <div style={{ background: 'rgba(212,175,55,0.1)', padding: '20px', borderRadius: '50%' }}><Lock size={32} color="var(--primary)" /></div>
-            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Pago 100% Seguro</h4>
-            <p style={{ opacity: 0.7 }}>Cifrado de extremo a extremo.</p>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Precios Justos</h4>
+            <p style={{ opacity: 0.7 }}>Comercio directo con artesanos mexicanos.</p>
           </div>
           <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
             <div style={{ background: 'rgba(212,175,55,0.1)', padding: '20px', borderRadius: '50%' }}><Award size={32} color="var(--primary)" /></div>
-            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Empaque Premium</h4>
-            <p style={{ opacity: 0.7 }}>Listo para regalar o coleccionar.</p>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Identidad Propia</h4>
+            <p style={{ opacity: 0.7 }}>Diseños que reflejan nuestras raíces.</p>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section style={{ padding: '60px 24px', background: 'rgba(255,255,255,0.95)', borderBottom: '1px solid rgba(212,175,55,0.15)' }}>
-        <div className="container scroll-animate fade-in-up" style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h2 className="team-title" style={{ fontSize: '2.8rem', fontWeight: 800 }}>Equipo de Desarrollo</h2>
-          <p style={{ color: 'rgba(26,26,26,0.8)', fontSize: '1.1rem', maxWidth: '680px', margin: '16px auto 0' }}>
-            Proyecto creado y presentado por el equipo encargado de la propuesta de experiencia premium.
-          </p>
-          <ul className="team-list">
-            <li>Angelo Emmanuel Flores Montes</li>
-            <li>Oscar Gomez Vazquez</li>
-            <li>Esteban Santos Angulo</li>
-            <li>Arath Daniel Noriega Domínguez</li>
-            <li>Enrique Vega Mayer</li>
-          </ul>
-        </div>
-      </section>
+
 
       {/* Bestsellers Section */}
       <section style={{ padding: '80px 24px', background: 'var(--background)' }}>
@@ -264,7 +248,7 @@ export default function Home() {
       <section style={{ padding: '120px 24px', position: 'relative', zIndex: 2 }}>
         <div className="container">
           <div className="scroll-animate fade-in-up" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '60px', flexWrap: 'wrap', gap: '20px' }}>
-            <h2 style={{ fontSize: '3.5rem', fontWeight: 800, color: 'white', lineHeight: 1.1 }}>Obras Maestras <br/><span className="text-gradient">Contemporáneas</span></h2>
+            <h2 style={{ fontSize: '3.5rem', fontWeight: 800, color: 'white', lineHeight: 1.1 }}>Artesanía de <br/><span className="text-gradient">Exportación</span></h2>
             <Link href="/productos" className="link-hover-effect" style={{ fontWeight: 700, fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
               Ver Catálogo Completo <ChevronRight size={20} />
             </Link>
@@ -272,21 +256,21 @@ export default function Home() {
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
             <div className="luxury-card group scroll-animate fade-in-up" style={{ animationDelay: '0.2s' }}>
-              <div className="luxury-card-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)' }} />
+              <div className="luxury-card-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1595991209266-5e04278dc71f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)' }} />
               <div className="luxury-card-content">
-                <div className="badge">ICÓNICO</div>
-                <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>Golden Edition</h3>
-                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', marginBottom: '24px' }}>El equilibrio perfecto entre lo urbano y lo exclusivo.</p>
+                <div className="badge">TRADICIÓN</div>
+                <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>Cultura Viva</h3>
+                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', marginBottom: '24px' }}>El equilibrio perfecto entre lo tradicional y lo moderno.</p>
                 <Link href="/productos" className="btn-glass">Adquirir Ahora</Link>
               </div>
             </div>
             
             <div className="luxury-card group scroll-animate fade-in-up" style={{ animationDelay: '0.4s' }}>
-              <div className="luxury-card-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1551107696-a4b0a5f5d95c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)' }} />
+              <div className="luxury-card-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1616866168339-399066cbab8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)' }} />
               <div className="luxury-card-content">
-                <div className="badge">NUEVO</div>
-                <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>Classic Black</h3>
-                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', marginBottom: '24px' }}>Elegancia oscura para la ciudad moderna.</p>
+                <div className="badge">IDENTIDAD</div>
+                <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>Legado Maestro</h3>
+                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', marginBottom: '24px' }}>Nuestra identidad en cada detalle de piel.</p>
                 <Link href="/productos" className="btn-glass">Adquirir Ahora</Link>
               </div>
             </div>
@@ -299,7 +283,7 @@ export default function Home() {
         <div className="container" style={{ display: 'flex', flexWrap: 'wrap', gap: '80px', alignItems: 'center' }}>
           <div style={{ flex: '1 1 400px', position: 'relative' }} className="video-container scroll-animate fade-in-up">
             <img 
-              src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+              src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
               alt="Artesano de calzado trabajando"
               style={{ width: '100%', height: '700px', objectFit: 'cover', borderRadius: '32px', filter: 'brightness(0.7) contrast(1.2)', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }} 
             />
@@ -310,19 +294,19 @@ export default function Home() {
           </div>
           
           <div className="scroll-animate fade-in-up" style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column', gap: '32px', animationDelay: '0.3s' }}>
-            <div style={{ color: 'var(--primary)', fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase' }}>Tradición y Vanguardia</div>
-            <h2 style={{ fontSize: '4rem', fontWeight: 800, lineHeight: 1.1 }}>El Arte de <br/>la Perfección.</h2>
+            <div style={{ color: 'var(--primary)', fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase' }}>Raíces y Cultura</div>
+            <h2 style={{ fontSize: '4rem', fontWeight: 800, lineHeight: 1.1 }}>El Valor de lo <br/>Auténtico.</h2>
             <p style={{ fontSize: '1.3rem', color: '#aaa', lineHeight: 1.8 }}>
-              No somos una fábrica; somos un taller. Seleccionamos cuidadosamente las pieles europeas de más alta calidad y dedicamos decenas de horas a cada par.
+              Nuestros artesanos mexicanos imprimen su alma en cada producto. Al eliminar intermediarios, garantizamos un pago justo por su arte y te ofrecemos calidad excepcional a un precio competitivo.
             </p>
             <div style={{ display: 'flex', gap: '24px', marginTop: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ background: 'rgba(212,175,55,0.1)', padding: '16px', borderRadius: '50%' }}><ShieldCheck size={24} color="var(--primary)" /></div>
-                <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>Garantía Vitalicia</span>
+                <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>Cuidado y Reparación</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ background: 'rgba(212,175,55,0.1)', padding: '16px', borderRadius: '50%' }}><Award size={24} color="var(--primary)" /></div>
-                <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>Piel Auténtica</span>
+                <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>Comercio Justo</span>
               </div>
             </div>
             <Link href="/reparaciones" className="btn-primary" style={{ alignSelf: 'flex-start', marginTop: '24px' }}>
@@ -400,7 +384,7 @@ export default function Home() {
 
       {/* Immersive CTA */}
       <section style={{ height: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'url(https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80) center/cover fixed', filter: 'brightness(0.3) sepia(0.2) hue-rotate(5deg)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'url(https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80) center/cover fixed', filter: 'brightness(0.3) sepia(0.2) hue-rotate(5deg)' }} />
         <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', color: 'white', padding: '0 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px' }}>
           <Star size={64} color="var(--primary)" fill="var(--primary)" style={{ animation: 'pulse 2s infinite' }} />
           <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', fontWeight: 900, lineHeight: 1.1 }}>

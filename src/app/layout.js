@@ -6,8 +6,8 @@ import AuthModal from '@/components/AuthModal';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'Calzado del Pueblo - Premium',
-  description: 'Estilo urbano para jóvenes con actitud y autenticidad.',
+  title: 'Calzado del Pueblo',
+  description: 'Llevamos el talento de nuestros artesanos mexicanos al mercado global. Identidad, precio competitivo y reparación para extender la vida de tus zapatos.',
 };
 
 export default function RootLayout({ children }) {

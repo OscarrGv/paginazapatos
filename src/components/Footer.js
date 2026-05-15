@@ -14,7 +14,7 @@ export default function Footer() {
               Calzado del <span className="text-gradient">Pueblo</span>
             </Link>
             <p style={{ opacity: 0.7, lineHeight: 1.6, marginBottom: '24px' }}>
-              Elevando el estándar del calzado urbano. Diseño premium, confort inigualable y una atención al detalle que marca la diferencia.
+              Impulsando la artesanía mexicana hacia el mercado global. Diseño con identidad, precio justo y atención al detalle en cada par.
             </p>
             <div style={{ display: 'flex', gap: '16px', fontWeight: 600 }}>
               <a href="#" style={{ color: 'var(--primary)', transition: 'all 0.2s' }} className="hover-scale">
@@ -35,6 +35,7 @@ export default function Footer() {
               <li><Link href="/" className="footer-link">Inicio</Link></li>
               <li><Link href="/productos" className="footer-link">Colección de Productos</Link></li>
               <li><Link href="/reparaciones" className="footer-link">Servicio de Reparación</Link></li>
+              <li><Link href="/nosotros" className="footer-link">Sobre Nosotros</Link></li>
             </ul>
           </div>
 

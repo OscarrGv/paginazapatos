@@ -41,18 +41,10 @@ export async function initDB() {
   const counts = await sql`SELECT COUNT(*) as count FROM products`;
   if (parseInt(counts[0].count) === 0) {
     const productsToSeed = [
-      { name: 'Royal Gold Edition', price: 149.99, image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&w=800&q=80', desc: 'Edición especial en blanco con detalles dorados premium.', sizes: '7,8,9,10,11' },
-      { name: 'Classic Pure White', price: 99.99, image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-4.0.3&w=800&q=80', desc: 'El blanco clásico impecable para cualquier ocasión.', sizes: '6,7,8,9,10' },
-      { name: 'Onyx Black & Gold', price: 129.99, image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&w=800&q=80', desc: 'Zapatillas en negro obsidiana con logotipo y acabados dorados.', sizes: '8,9,10,11,12' },
-      { name: 'Champagne Runners', price: 119.99, image: 'https://images.unsplash.com/photo-1551107696-a4b0a5f5d95c?ixlib=rb-4.0.3&w=800&q=80', desc: 'Zapatillas deportivas color champagne, ultraligeras.', sizes: '6,7,8,9' },
-      { name: 'Platinum Silver', price: 139.99, image: 'https://images.unsplash.com/photo-1552346154-21d32810baa3?ixlib=rb-4.0.3&w=800&q=80', desc: 'Detalles platinados para resaltar en cada paso.', sizes: '7,8,9,10,11' },
-      { name: 'Rose Gold Comfort', price: 109.99, image: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&w=800&q=80', desc: 'Zapatillas urbanas color rosa pálido y detalles en oro rosado.', sizes: '5,6,7,8,9' },
-      { name: 'Midnight Blue & Gold', price: 134.99, image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&w=800&q=80', desc: 'Azul medianoche profundo para máxima elegancia nocturna.', sizes: '8,9,10,11' },
-      { name: 'Leather Heritage', price: 159.99, image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-4.0.3&w=800&q=80', desc: 'Cuero genuino hecho a mano con costuras premium.', sizes: '9,10,11,12' },
-      { name: 'Golden Mids', price: 114.99, image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&w=800&q=80', desc: 'Silueta de media bota con estética retro moderna.', sizes: '7,8,9,10' },
-      { name: 'Diamond White Low', price: 95.99, image: 'https://images.unsplash.com/photo-1518002171953-a080ee817e1f?ixlib=rb-4.0.3&w=800&q=80', desc: 'Zapatillas de perfil bajo color diamante puro.', sizes: '6,7,8,9,10,11' },
-      { name: 'Street Prestige', price: 144.99, image: 'https://images.unsplash.com/photo-1584735174965-48c48d7028a9?ixlib=rb-4.0.3&w=800&q=80', desc: 'Diseño audaz con plataforma y suela translúcida.', sizes: '7,8,9,10' },
-      { name: 'Velvet Gold High', price: 179.99, image: 'https://images.unsplash.com/photo-1534653299134-96a171b61581?ixlib=rb-4.0.3&w=800&q=80', desc: 'Botines de terciopelo premium con broches de oro.', sizes: '8,9,10,11,12' }
+      { name: 'Huarache Clásico Tejido', price: 85.00, image: 'https://images.unsplash.com/photo-1616866168339-399066cbab8e?ixlib=rb-4.0.3&w=800&q=80', desc: 'Huaraches tradicionales mexicanos tejidos a mano por artesanos veracruzanos. Piel 100% natural.', sizes: '23,24,25,26,27,28' },
+      { name: 'Sandalia de Piel Fina', price: 95.00, image: 'https://images.unsplash.com/photo-1595991209266-5e04278dc71f?ixlib=rb-4.0.3&w=800&q=80', desc: 'Sandalia artesanal con acabados finos y detalles autóctonos que resaltan nuestra cultura.', sizes: '22,23,24,25,26,27' },
+      { name: 'Bota Artesanal de Trabajo', price: 120.00, image: 'https://images.unsplash.com/photo-1580982545800-47b2bd3c5c96?ixlib=rb-4.0.3&w=800&q=80', desc: 'Botas de piel genuina, cosidas a mano y diseñadas para durar toda la vida con el mantenimiento adecuado.', sizes: '25,26,27,28,29,30' },
+      { name: 'Huarache Cruzado', price: 89.00, image: 'https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?ixlib=rb-4.0.3&w=800&q=80', desc: 'Un diseño cómodo y fresco con correas de cuero entrelazadas al estilo tradicional.', sizes: '24,25,26,27,28' }
     ];
 
     for (const prod of productsToSeed) {

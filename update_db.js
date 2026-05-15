@@ -1,8 +1,9 @@
-import { PrismaClient } from '@prisma/client';
-
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.product.deleteMany({});
+  
   const products = [
     {
       name: 'Huarache Clásico Tejido',
@@ -39,30 +40,7 @@ async function main() {
       data: product
     });
   }
-
-  const services = [
-    { name: 'Cambio de suela', description: 'Reemplazo completo de la suela desgastada', price: 25.00 },
-    { name: 'Reparación de costuras', description: 'Arreglo de costuras rotas o desgastadas', price: 15.00 },
-    { name: 'Reemplazo de cordones', description: 'Cambio de cordones por unos nuevos', price: 8.00 },
-    { name: 'Limpieza profunda', description: 'Limpieza completa y restauración de color', price: 12.00 },
-    { name: 'Reparación de cremallera', description: 'Arreglo o reemplazo de cremallera dañada', price: 18.00 },
-    { name: 'Refuerzo de talón', description: 'Refuerzo interno para mayor durabilidad', price: 10.00 }
-  ];
-
-  for (const svc of services) {
-    await prisma.repairService.create({
-      data: svc
-    });
-  }
-
-  console.log('Seed completed successfully!');
+  console.log("DB Updated");
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+main().catch(console.error).finally(() => prisma.$disconnect());

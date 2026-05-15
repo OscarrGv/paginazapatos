@@ -59,6 +59,7 @@ export default function Navbar() {
           <Link href="/" style={{ fontWeight: 600, color: pathname === '/' ? 'var(--primary)' : textColor, transition: 'color 0.2s', position: 'relative' }} className="nav-link">Inicio</Link>
           <Link href="/productos" style={{ fontWeight: 600, color: pathname === '/productos' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">Productos</Link>
           <Link href="/reparaciones" style={{ fontWeight: 600, color: pathname === '/reparaciones' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">Reparaciones</Link>
+          <Link href="/nosotros" style={{ fontWeight: 600, color: pathname === '/nosotros' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">Nosotros</Link>
         </nav>
 
         {/* Icons */}
@@ -110,6 +111,9 @@ export default function Navbar() {
           </Link>
           <Link href="/reparaciones" style={{ padding: '16px', fontSize: '1.2rem', fontWeight: 600, borderBottom: '1px solid rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: pathname === '/reparaciones' ? 'var(--primary)' : 'var(--foreground)' }}>
             Reparaciones <ChevronRight size={20} opacity={0.5} />
+          </Link>
+          <Link href="/nosotros" style={{ padding: '16px', fontSize: '1.2rem', fontWeight: 600, borderBottom: '1px solid rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: pathname === '/nosotros' ? 'var(--primary)' : 'var(--foreground)' }}>
+            Nosotros <ChevronRight size={20} opacity={0.5} />
           </Link>
           
           <div style={{ marginTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
