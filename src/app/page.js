@@ -264,7 +264,7 @@ export default function Home() {
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
             <div className="luxury-card group scroll-animate fade-in-up" style={{ animationDelay: '0.2s' }}>
-              <div className="luxury-card-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1595991209266-5e04278dc71f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)' }} />
+              <div className="luxury-card-img" style={{ backgroundImage: 'url(/bandera-mexicana.jpg)' }} />
               <div className="luxury-card-content">
                 <div className="badge">TRADICIÓN</div>
                 <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>Cultura Viva</h3>
@@ -274,7 +274,7 @@ export default function Home() {
             </div>
             
             <div className="luxury-card group scroll-animate fade-in-up" style={{ animationDelay: '0.4s' }}>
-              <div className="luxury-card-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1616866168339-399066cbab8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)' }} />
+              <div className="luxury-card-img" style={{ backgroundImage: 'url(/artesano-trabajando.jpg)' }} />
               <div className="luxury-card-content">
                 <div className="badge">IDENTIDAD</div>
                 <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>Legado Maestro</h3>
