@@ -9,38 +9,48 @@ export default function ImpactoSocial() {
       
       {/* Hero Section */}
       <section style={{
-        minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        padding: '160px 5% 80px', textAlign: 'center', position: 'relative',
+        minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '120px 0', position: 'relative', overflow: 'hidden',
         background: 'var(--foreground)'
       }}>
-        
-        <div className="animate-fade-in-up" style={{ 
-          maxWidth: '900px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px', 
-          position: 'relative', zIndex: 2
-        }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 28px', borderRadius: '99px',
-            background: 'rgba(212, 175, 55, 0.1)', color: 'var(--primary)', fontWeight: 700, fontSize: '0.9rem', 
-            border: '1px solid rgba(212,175,55,0.4)', letterSpacing: '3px', textTransform: 'uppercase'
-          }}>
-            <Heart size={14} /> Nuestro Compromiso
-          </div>
-          
-          <h1 style={{ fontSize: 'clamp(3.5rem, 7vw, 6rem)', fontWeight: 900, lineHeight: 1.05 }}>
-            Cambiando vidas, <br/><span className="text-gradient">un par a la vez.</span>
-          </h1>
-          
-          <p style={{ fontSize: '1.3rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, maxWidth: '700px' }}>
-            En Calzado del Pueblo, no solo vendemos zapatos. Fomentamos el desarrollo económico de las comunidades artesanales en México, preservando nuestra riqueza cultural.
-          </p>
+        {/* Background Image with Gradients */}
+        <div className="animate-fade-in-up" style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <img 
+            src="/artesanos-taller.jpg" 
+            alt="Taller de Artesanos Mexicanos" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 40%', filter: 'brightness(0.5) contrast(1.1)' }} 
+          />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,10,10,1) 0%, rgba(10,10,10,0.7) 50%, transparent 100%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, var(--foreground) 0%, transparent 20%)' }} />
         </div>
 
-        <div className="animate-fade-in-up" style={{ animationDelay: '0.4s', width: '100%', maxWidth: '1200px', height: '400px', borderRadius: '32px', overflow: 'hidden', marginTop: '60px', position: 'relative', boxShadow: '0 30px 60px rgba(0,0,0,0.6)' }}>
-          <img 
-            src="/artesano-trabajando.jpg" 
-            alt="Artesanía Mexicana" 
-            style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6) sepia(0.2)', transform: 'scale(1.05)', transition: 'transform 10s ease-out' }} 
-          />
+        <div className="container" style={{ position: 'relative', zIndex: 2, display: 'flex', width: '100%', alignItems: 'center' }}>
+          <div className="animate-slide-right" style={{ 
+            maxWidth: '750px', padding: '60px 50px', 
+            background: 'rgba(10, 10, 10, 0.4)', backdropFilter: 'blur(16px)', 
+            borderRadius: '32px', border: '1px solid rgba(255,255,255,0.05)', 
+            boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+            position: 'relative'
+          }}>
+            {/* Decorative Golden Accent */}
+            <div style={{ position: 'absolute', top: 0, left: '40px', width: '60px', height: '4px', background: 'var(--primary)', borderRadius: '0 0 4px 4px' }} />
+
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 28px', borderRadius: '99px',
+              background: 'rgba(212, 175, 55, 0.1)', color: 'var(--primary)', fontWeight: 700, fontSize: '0.9rem', 
+              border: '1px solid rgba(212,175,55,0.4)', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '32px'
+            }}>
+              <Heart size={14} /> Nuestro Compromiso
+            </div>
+            
+            <h1 style={{ fontSize: 'clamp(3.5rem, 6vw, 5.5rem)', fontWeight: 900, lineHeight: 1.05, marginBottom: '24px' }}>
+              Cambiando vidas, <br/><span className="text-gradient">un par a la vez.</span>
+            </h1>
+            
+            <p style={{ fontSize: '1.25rem', color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }}>
+              En Calzado del Pueblo, no solo vendemos zapatos. Fomentamos el desarrollo económico de las comunidades artesanales en México, preservando nuestra riqueza cultural y asegurando que su labor sea valorada en el mercado global.
+            </p>
+          </div>
         </div>
       </section>
 
