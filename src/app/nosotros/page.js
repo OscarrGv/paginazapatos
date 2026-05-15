@@ -66,11 +66,12 @@ export default function Nosotros() {
               </div>
               <div style={{ position: 'relative' }}>
                 <div style={{ position: 'absolute', inset: '-20px', background: 'radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%)', zIndex: 0 }} />
-                <div style={{ background: 'rgba(255,255,255,0.03)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 1, backdropFilter: 'blur(10px)' }}>
+                <div style={{ background: 'rgba(255,255,255,0.03)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 1, backdropFilter: 'blur(10px)', textAlign: 'center' }}>
+                  <img src="/itv-logo.png" alt="Instituto Tecnológico de Veracruz" style={{ width: '120px', marginBottom: '24px', filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))' }} />
                   <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '24px', color: 'var(--primary)', borderBottom: '1px solid rgba(212,175,55,0.2)', paddingBottom: '16px' }}>
                     Equipo de Desarrollo
                   </h3>
-                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'left' }}>
                     {['Angelo Emmanuel Flores Montes', 'Oscar Gomez Vazquez', 'Esteban Santos Angulo', 'Arath Daniel Noriega Domínguez', 'Enrique Vega Mayer'].map((name, i) => (
                       <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.1rem', fontWeight: 500 }}>
                         <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)' }} />

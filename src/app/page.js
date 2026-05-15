@@ -135,8 +135,8 @@ export default function Home() {
             fontSize: 'clamp(3.5rem, 8vw, 8rem)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', color: 'white',
             textShadow: '0 10px 30px rgba(0,0,0,0.5)'
           }}>
-            <span className="reveal-text" style={{ animationDelay: '0.8s' }}>Identidad de</span><br/>
-            <span className="reveal-text text-gradient" style={{ animationDelay: '1s' }}>México al Mundo.</span>
+            <span className="reveal-text" style={{ animationDelay: '0.8s' }}>El Alma de</span><br/>
+            <span className="reveal-text text-gradient" style={{ animationDelay: '1s' }}>México, en tu Caminar.</span>
           </h1>
           
           <p style={{ 
