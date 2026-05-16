@@ -9,8 +9,19 @@ import { usePathname } from 'next/navigation';
 import icono from '@/icono.png';
 import { useTranslation } from '@/lib/translations';
 
+const LANGUAGES = [
+  { code: 'es', flag: '🇲🇽', short: 'ES' },
+  { code: 'en', flag: '🇺🇸', short: 'EN' },
+  { code: 'fr', flag: '🇫🇷', short: 'FR' },
+  { code: 'pt', flag: '🇧🇷', short: 'PT' },
+  { code: 'de', flag: '🇩🇪', short: 'DE' },
+  { code: 'it', flag: '🇮🇹', short: 'IT' },
+  { code: 'zh', flag: '🇨🇳', short: 'ZH' },
+  { code: 'ja', flag: '🇯🇵', short: 'JP' },
+];
+
 export default function Navbar() {
-  const { cart, setIsCartOpen, user, logout, setIsAuthModalOpen, language } = useAppContext();
+  const { cart, setIsCartOpen, user, logout, setIsAuthModalOpen, language, setLanguage } = useAppContext();
   const t = useTranslation(language);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -19,40 +30,84 @@ export default function Navbar() {
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   const isHomePage = pathname === '/';
-  // If on homepage, text is always white. Otherwise, it depends on theme.
   const textColor = isHomePage ? 'white' : 'var(--foreground)';
-  
-  // Background logic: If homepage, scrolled bg is dark glass. Otherwise, it's the normal surface.
-  const bgStyle = scrolled 
-    ? (isHomePage ? 'rgba(0, 0, 0, 0.85)' : 'var(--surface)') 
-    : 'transparent';
+
+  const bgStyle = scrolled
+    ? (isHomePage ? 'rgba(0, 0, 0, 0.85)' : 'var(--surface)')
+    : (isHomePage ? 'transparent' : 'var(--surface)');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => { setScrolled(window.scrollY > 20); };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
+  useEffect(() => { setMobileMenuOpen(false); }, [pathname]);
+
+  // Strip colors always match the header
+  const stripBorder = isHomePage
+    ? 'rgba(255,255,255,0.08)'
+    : 'rgba(212,175,55,0.15)';
+  const stripText = isHomePage ? 'rgba(255,255,255,0.5)' : 'rgba(100,80,0,0.6)';
+  const activeLangBg = isHomePage ? 'rgba(255,255,255,0.12)' : 'rgba(212,175,55,0.15)';
+  const activeLangColor = isHomePage ? 'white' : 'var(--primary)';
 
   return (
-    <header className={`transition-all duration-300 ${scrolled ? 'shadow-md' : 'bg-transparent'}`} 
-      style={{ 
-        position: isHomePage ? 'fixed' : 'sticky', 
+    <header
+      className={`transition-all duration-300 ${scrolled ? 'shadow-md' : ''}`}
+      style={{
+        position: isHomePage ? 'fixed' : 'sticky',
         top: 0, left: 0, right: 0, zIndex: 50,
-        padding: scrolled ? '12px 0' : '20px 0', 
-        borderBottom: scrolled ? (isHomePage ? '1px solid rgba(255,255,255,0.1)' : '1px solid var(--surface-border)') : 'none', 
-        backgroundColor: bgStyle, 
-        backdropFilter: scrolled ? 'blur(20px)' : 'none', 
+        borderBottom: scrolled
+          ? (isHomePage ? '1px solid rgba(255,255,255,0.1)' : '1px solid var(--surface-border)')
+          : 'none',
+        backgroundColor: bgStyle,
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-        color: textColor 
+        color: textColor,
+      }}
+    >
+      {/* ── Language strip ── */}
+      <div style={{
+        borderBottom: `1px solid ${stripBorder}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        gap: '2px',
+        padding: '4px 24px',
+        fontSize: '0.72rem',
+        flexWrap: 'wrap',
       }}>
-      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ color: stripText, marginRight: '8px', fontWeight: 500, letterSpacing: '0.4px', textTransform: 'uppercase' }}>
+          🌐 Idioma:
+        </span>
+        {LANGUAGES.map((lang) => {
+          const isActive = language === lang.code;
+          return (
+            <button
+              key={lang.code}
+              onClick={() => setLanguage(lang.code)}
+              title={lang.code.toUpperCase()}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '4px',
+                padding: '2px 8px', borderRadius: '20px',
+                border: isActive ? `1px solid ${activeLangColor}` : '1px solid transparent',
+                background: isActive ? activeLangBg : 'transparent',
+                color: isActive ? activeLangColor : stripText,
+                fontSize: '0.72rem', fontWeight: isActive ? 700 : 400,
+                cursor: 'pointer', transition: 'all 0.18s ease',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <span style={{ fontSize: '0.9rem' }}>{lang.flag}</span>
+              <span className="lang-label">{lang.short}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ── Main nav row ── */}
+      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: scrolled ? '10px 24px' : '16px 24px', transition: 'padding 0.3s' }}>
         
         <Link href="/" className="logo text-glow" style={{ fontSize: '1.8rem', fontWeight: 800, letterSpacing: '-0.5px', color: textColor }}>
           Calzado del <span className="text-gradient">Pueblo</span>
