@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/facebook";
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import sql from '@/lib/db';
 import bcrypt from 'bcryptjs';
@@ -11,10 +11,7 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID || "",
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "",
-    }),
+
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -47,7 +44,7 @@ const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET || "secreto_super_seguro_temporal",
   callbacks: {
     async signIn({ user, account, profile }) {
-      if (account.provider === 'google' || account.provider === 'facebook') {
+      if (account.provider === 'google') {
         // Here we could auto-register OAuth users into the Neon database if they don't exist
         try {
           const existing = await sql`SELECT * FROM users WHERE email = ${user.email}`;
