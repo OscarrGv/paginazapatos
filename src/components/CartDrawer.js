@@ -9,9 +9,6 @@ export default function CartDrawer() {
   const [shippingOptions, setShippingOptions] = useState([]);
   const [selectedShipping, setSelectedShipping] = useState(null);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [paymentSuccess, setPaymentSuccess] = useState(null);
-  const [step, setStep] = useState('cart'); // 'cart' | 'payment' | 'success'
-  const [cardData, setCardData] = useState({ number: '', name: '', expiry: '', cvc: '' });
 
   useEffect(() => {
     if (isCartOpen && shippingOptions.length === 0) {
@@ -28,16 +25,12 @@ export default function CartDrawer() {
   const shippingPrice = selectedShipping ? selectedShipping.price : 0;
   const total = subtotal > 0 ? subtotal + shippingPrice : 0;
 
-  const handleGoToPayment = () => {
+  const handleGoToPayment = async () => {
     if (!user) {
       setIsAuthModalOpen(true);
       return;
     }
-    setStep('payment');
-  };
-
-  const handleProcessPayment = async (e) => {
-    e.preventDefault();
+    
     setIsCheckingOut(true);
     try {
       const res = await fetch('/api/checkout', {
@@ -52,15 +45,14 @@ export default function CartDrawer() {
       });
       const data = await res.json();
       
-      if (data.success) {
-        setPaymentSuccess(data.transactionId);
-        setStep('success');
+      if (data.url) {
+        window.location.href = data.url; // Redirigir a Stripe Checkout
       } else {
-        alert(data.error || 'Error en el pago');
+        alert(data.error || 'Error iniciando el pago seguro');
+        setIsCheckingOut(false);
       }
     } catch (err) {
-      alert('Error de conexión al procesar pago');
-    } finally {
+      alert('Error de conexión con la pasarela de pago');
       setIsCheckingOut(false);
     }
   };
@@ -91,74 +83,12 @@ export default function CartDrawer() {
       >
         <div style={{ padding: '24px', borderBottom: '1px solid var(--surface-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--primary)' }}>
-            {step === 'cart' && 'Tu Carrito'}
-            {step === 'payment' && 'Pago Seguro'}
-            {step === 'success' && '¡Éxito!'}
+            Tu Carrito
           </h2>
-          <button onClick={() => { setIsCartOpen(false); setStep('cart'); setPaymentSuccess(null); }} style={{ background: 'none', border: 'none', color: 'var(--foreground)', cursor: 'pointer' }}>
+          <button onClick={() => setIsCartOpen(false)} style={{ background: 'none', border: 'none', color: 'var(--foreground)', cursor: 'pointer' }}>
             <X size={24} />
           </button>
         </div>
-
-        {step === 'success' && (
-          <div style={{ padding: '40px 24px', textAlign: 'center', flex: 1 }}>
-            <ShieldCheck size={64} color="var(--success)" style={{ margin: '0 auto 24px' }} />
-            <h2 style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: '16px' }}>¡Pago Exitoso!</h2>
-            <p style={{ opacity: 0.8, marginBottom: '24px' }}>Tu transacción <strong>{paymentSuccess}</strong> ha sido procesada de manera segura.</p>
-            <p style={{ fontSize: '0.9rem', opacity: 0.7, marginBottom: '32px' }}>Recibirás un correo a <strong>{user?.email}</strong> con la confirmación de tu pedido y el número de seguimiento.</p>
-            <button onClick={() => { setIsCartOpen(false); setStep('cart'); setPaymentSuccess(null); }} className="btn-primary" style={{ width: '100%' }}>
-              Continuar Comprando
-            </button>
-          </div>
-        )}
-
-        {step === 'payment' && (
-          <form onSubmit={handleProcessPayment} style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-            <p style={{ marginBottom: '24px', opacity: 0.8 }}>Total a pagar: <strong>${total.toFixed(2)}</strong></p>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
-              <div>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600, fontSize: '0.9rem' }}>Nombre en la tarjeta</label>
-                <input required type="text" placeholder="Ej. Juan Pérez" value={cardData.name} onChange={e => setCardData({...cardData, name: e.target.value})} className="input-premium" style={{ width: '100%' }} />
-              </div>
-              
-              <div>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600, fontSize: '0.9rem' }}>Número de Tarjeta (Prueba)</label>
-                <input required type="text" placeholder="4242 4242 4242 4242" maxLength={19} value={cardData.number} onChange={e => setCardData({...cardData, number: e.target.value})} className="input-premium" style={{ width: '100%', letterSpacing: '2px' }} />
-              </div>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600, fontSize: '0.9rem' }}>Vencimiento</label>
-                  <input required type="text" placeholder="MM/AA" maxLength={5} value={cardData.expiry} onChange={e => setCardData({...cardData, expiry: e.target.value})} className="input-premium" style={{ width: '100%' }} />
-                </div>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600, fontSize: '0.9rem' }}>CVC</label>
-                  <input required type="password" placeholder="123" maxLength={4} value={cardData.cvc} onChange={e => setCardData({...cardData, cvc: e.target.value})} className="input-premium" style={{ width: '100%' }} />
-                </div>
-              </div>
-            </div>
-
-            <div style={{ marginTop: 'auto', paddingTop: '24px' }}>
-              <button type="button" onClick={() => setStep('cart')} style={{ width: '100%', padding: '12px', background: 'none', border: '1px solid var(--surface-border)', borderRadius: '8px', marginBottom: '12px', cursor: 'pointer' }}>
-                Volver al Carrito
-              </button>
-              <button 
-                type="submit"
-                disabled={isCheckingOut}
-                className="btn-primary" 
-                style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '16px' }}
-              >
-                {isCheckingOut ? <span className="spinner" style={{ width: '24px', height: '24px', borderWidth: '2px', borderColor: 'white', borderTopColor: 'transparent' }}/> : `Pagar $${total.toFixed(2)}`}
-              </button>
-              <div style={{ textAlign: 'center', marginTop: '12px', opacity: 0.6, fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
-                <ShieldCheck size={14} /> Transacción simulada segura
-              </div>
-            </div>
-          </form>
-        )}
-
-        {step === 'cart' && (
           <>
             <div style={{ flex: 1, overflowY: 'auto', padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
               {cart.length === 0 ? (
@@ -236,8 +166,7 @@ export default function CartDrawer() {
               </div>
             )}
           </>
-        )}
-      </div>
+
 
       <style jsx>{`
         @keyframes slideIn {

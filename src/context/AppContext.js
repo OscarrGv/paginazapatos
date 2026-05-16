@@ -16,6 +16,7 @@ export function AppProvider({ children }) {
   const [recoverEmail, setRecoverEmail] = useState('');
   const [authError, setAuthError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [language, setLanguage] = useState('es');
 
   useEffect(() => {
     // Load from local storage on mount
@@ -163,7 +164,8 @@ export function AppProvider({ children }) {
         registerData, setRegisterData,
         recoverEmail, setRecoverEmail,
         authError, setAuthError,
-        isLoading
+        isLoading,
+        language, setLanguage,
       }}>
         <SessionSync />
         {children}

@@ -1,6 +1,7 @@
 import './globals.css';
 import { AppProvider } from '@/context/AppContext';
 import Navbar from '@/components/Navbar';
+import LanguageBar from '@/components/LanguageBar';
 import CartDrawer from '@/components/CartDrawer';
 import AuthModal from '@/components/AuthModal';
 import Footer from '@/components/Footer';
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <AppProvider>
+          <LanguageBar />
           <Navbar />
           <main style={{ flex: '1' }}>
             {children}

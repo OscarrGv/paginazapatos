@@ -7,9 +7,11 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import icono from '@/icono.png';
+import { useTranslation } from '@/lib/translations';
 
 export default function Navbar() {
-  const { cart, setIsCartOpen, user, logout, setIsAuthModalOpen } = useAppContext();
+  const { cart, setIsCartOpen, user, logout, setIsAuthModalOpen, language } = useAppContext();
+  const t = useTranslation(language);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -58,11 +60,11 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <nav style={{ display: 'flex', gap: '40px' }} className="hidden-mobile">
-          <Link href="/" style={{ fontWeight: 600, color: pathname === '/' ? 'var(--primary)' : textColor, transition: 'color 0.2s', position: 'relative' }} className="nav-link">Inicio</Link>
-          <Link href="/productos" style={{ fontWeight: 600, color: pathname === '/productos' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">Productos</Link>
-          <Link href="/reparaciones" style={{ fontWeight: 600, color: pathname === '/reparaciones' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">Reparaciones</Link>
-          <Link href="/nosotros" style={{ fontWeight: 600, color: pathname === '/nosotros' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">Nosotros</Link>
-          <Link href="/impacto" style={{ fontWeight: 600, color: pathname === '/impacto' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">Impacto Social</Link>
+          <Link href="/" style={{ fontWeight: 600, color: pathname === '/' ? 'var(--primary)' : textColor, transition: 'color 0.2s', position: 'relative' }} className="nav-link">{t.nav.home}</Link>
+          <Link href="/productos" style={{ fontWeight: 600, color: pathname === '/productos' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">{t.nav.products}</Link>
+          <Link href="/reparaciones" style={{ fontWeight: 600, color: pathname === '/reparaciones' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">{t.nav.repairs}</Link>
+          <Link href="/nosotros" style={{ fontWeight: 600, color: pathname === '/nosotros' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">{t.nav.about}</Link>
+          <Link href="/impacto" style={{ fontWeight: 600, color: pathname === '/impacto' ? 'var(--primary)' : textColor, transition: 'color 0.2s' }} className="nav-link">{t.nav.impact}</Link>
         </nav>
 
         {/* Icons */}
@@ -98,8 +100,8 @@ export default function Navbar() {
           
           {user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="hidden-mobile">
-              <span style={{ fontSize: '0.95rem', fontWeight: 500, color: textColor }}>Hola, {user.name}</span>
-              <button onClick={logout} style={{ background: 'rgba(239, 68, 68, 0.1)', border: 'none', color: 'var(--error)', cursor: 'pointer', padding: '8px', borderRadius: '50%', transition: 'all 0.2s' }} title="Cerrar sesión" className="hover-scale">
+              <span style={{ fontSize: '0.95rem', fontWeight: 500, color: textColor }}>{t.nav.hello}, {user.name}</span>
+              <button onClick={logout} style={{ background: 'rgba(239, 68, 68, 0.1)', border: 'none', color: 'var(--error)', cursor: 'pointer', padding: '8px', borderRadius: '50%', transition: 'all 0.2s' }} title={t.nav.logout} className="hover-scale">
                 <LogOut size={18} />
               </button>
             </div>
@@ -135,19 +137,19 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="mobile-menu-overlay animate-fade-in-up" style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--surface)', backdropFilter: 'blur(20px)', borderBottom: '1px solid var(--surface-border)', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
           <Link href="/" style={{ padding: '16px', fontSize: '1.2rem', fontWeight: 600, borderBottom: '1px solid rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: pathname === '/' ? 'var(--primary)' : 'var(--foreground)' }}>
-            Inicio <ChevronRight size={20} opacity={0.5} />
+            {t.nav.home} <ChevronRight size={20} opacity={0.5} />
           </Link>
           <Link href="/productos" style={{ padding: '16px', fontSize: '1.2rem', fontWeight: 600, borderBottom: '1px solid rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: pathname === '/productos' ? 'var(--primary)' : 'var(--foreground)' }}>
-            Productos <ChevronRight size={20} opacity={0.5} />
+            {t.nav.products} <ChevronRight size={20} opacity={0.5} />
           </Link>
           <Link href="/reparaciones" style={{ padding: '16px', fontSize: '1.2rem', fontWeight: 600, borderBottom: '1px solid rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: pathname === '/reparaciones' ? 'var(--primary)' : 'var(--foreground)' }}>
-            Reparaciones <ChevronRight size={20} opacity={0.5} />
+            {t.nav.repairs} <ChevronRight size={20} opacity={0.5} />
           </Link>
           <Link href="/nosotros" style={{ padding: '16px', fontSize: '1.2rem', fontWeight: 600, borderBottom: '1px solid rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: pathname === '/nosotros' ? 'var(--primary)' : 'var(--foreground)' }}>
-            Nosotros <ChevronRight size={20} opacity={0.5} />
+            {t.nav.about} <ChevronRight size={20} opacity={0.5} />
           </Link>
           <Link href="/impacto" style={{ padding: '16px', fontSize: '1.2rem', fontWeight: 600, borderBottom: '1px solid rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: pathname === '/impacto' ? 'var(--primary)' : 'var(--foreground)' }}>
-            Impacto Social <ChevronRight size={20} opacity={0.5} />
+            {t.nav.impact} <ChevronRight size={20} opacity={0.5} />
           </Link>
           
           <div style={{ marginTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -155,12 +157,12 @@ export default function Navbar() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '16px', background: 'rgba(212,175,55,0.05)', borderRadius: '12px' }}>
                 <span style={{ fontWeight: 600, color: 'var(--foreground)' }}>{user.name}</span>
                 <button onClick={logout} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--error)', background: 'none', border: 'none', fontWeight: 600, cursor: 'pointer' }}>
-                  Salir <LogOut size={18} />
+                  {t.nav.logout} <LogOut size={18} />
                 </button>
               </div>
             ) : (
               <button onClick={() => setIsAuthModalOpen(true)} className="btn-primary" style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', padding: '16px' }}>
-                <User size={20} /> Iniciar Sesión
+                <User size={20} /> {t.nav.login}
               </button>
             )}
           </div>
