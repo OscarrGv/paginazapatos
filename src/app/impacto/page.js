@@ -68,9 +68,9 @@ export default function ImpactoSocial() {
               <div style={{ background: 'rgba(212,175,55,0.1)', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <Users size={30} color="var(--primary)" />
               </div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>{t.impactPage.card1Title}</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>{t.impactPage.c1Title}</h3>
               <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-                {t.impactPage.card1Desc}
+                {t.impactPage.c1Desc}
               </p>
             </div>
             
@@ -78,9 +78,9 @@ export default function ImpactoSocial() {
               <div style={{ background: 'rgba(212,175,55,0.1)', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <ShieldCheck size={30} color="var(--primary)" />
               </div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>{t.impactPage.card2Title}</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>{t.impactPage.c2Title}</h3>
               <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-                {t.impactPage.card2Desc}
+                {t.impactPage.c2Desc}
               </p>
             </div>
 
@@ -88,9 +88,9 @@ export default function ImpactoSocial() {
               <div style={{ background: 'rgba(212,175,55,0.1)', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <TrendingUp size={30} color="var(--primary)" />
               </div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>{t.impactPage.card3Title}</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>{t.impactPage.c3Title}</h3>
               <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-                {t.impactPage.card3Desc}
+                {t.impactPage.c3Desc}
               </p>
             </div>
           </div>
@@ -99,12 +99,12 @@ export default function ImpactoSocial() {
             <div style={{ position: 'absolute', inset: 0, background: 'url(https://images.unsplash.com/photo-1595991209266-5e04278dc71f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80) center/cover', opacity: 0.15, zIndex: 0 }} />
             <div style={{ position: 'relative', zIndex: 1 }}>
               <Globe size={48} color="var(--primary)" style={{ margin: '0 auto 24px' }} />
-              <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '24px' }}>{t.impactPage.bannerTitle1} <br/>{t.impactPage.bannerTitle2}</h2>
+              <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '24px' }}>{t.impactPage.bTitle1} <br/>{t.impactPage.bTitle2}</h2>
               <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.8)', maxWidth: '600px', margin: '0 auto 32px', lineHeight: 1.6 }}>
-                {t.impactPage.bannerDesc}
+                {t.impactPage.bDesc}
               </p>
               <Link href="/productos" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '16px 32px' }}>
-                {t.impactPage.bannerCta} <ChevronRight size={18} />
+                {t.impactPage.cta} <ChevronRight size={18} />
               </Link>
             </div>
           </div>
