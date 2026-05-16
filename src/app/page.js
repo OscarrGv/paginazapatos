@@ -3,8 +3,12 @@
 import Link from 'next/link';
 import { ShieldCheck, Truck, Star, Award, ChevronRight, Zap, RefreshCw, Lock, Quote } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useAppContext } from '@/context/AppContext';
+import { useTranslation } from '@/lib/translations';
 
 export default function Home() {
+  const { language } = useAppContext();
+  const t = useTranslation(language);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [bestsellers, setBestsellers] = useState([]);
@@ -128,15 +132,15 @@ export default function Home() {
             textTransform: 'uppercase', backdropFilter: 'blur(12px)',
             boxShadow: '0 0 20px rgba(212,175,55,0.1)'
           }}>
-            <Star size={14} fill="var(--primary)" color="var(--primary)" /> Orgullo de Nuestros Artesanos
+            <Star size={14} fill="var(--primary)" color="var(--primary)" /> {t.hero.badge}
           </div>
           
           <h1 style={{ 
             fontSize: 'clamp(3.5rem, 8vw, 8rem)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', color: 'white',
             textShadow: '0 10px 30px rgba(0,0,0,0.5)'
           }}>
-            <span className="reveal-text" style={{ animationDelay: '0.8s' }}>El Alma de</span><br/>
-            <span className="reveal-text text-gradient" style={{ animationDelay: '1s' }}>México, en tu Caminar.</span>
+            <span className="reveal-text" style={{ animationDelay: '0.8s' }}>{t.hero.title1}</span><br/>
+            <span className="reveal-text text-gradient" style={{ animationDelay: '1s' }}>{t.hero.title2}</span>
           </h1>
           
           <p style={{ 
@@ -144,7 +148,7 @@ export default function Home() {
             opacity: isLoaded ? 1 : 0, transition: 'opacity 1s ease 1.5s',
             textShadow: '0 2px 10px rgba(0,0,0,0.5)'
           }}>
-            Impulsamos el talento de nuestros artesanos mexicanos al mercado global, dándole identidad a su trabajo con precios justos y competitivos.
+            {t.hero.subtitle}
           </p>
 
           <div style={{ 
@@ -152,10 +156,10 @@ export default function Home() {
             opacity: isLoaded ? 1 : 0, transform: isLoaded ? 'translateY(0)' : 'translateY(20px)', transition: 'all 1s ease 1.8s'
           }}>
             <Link href="/productos" className="btn-primary" style={{ padding: '22px 50px', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '12px', boxShadow: '0 20px 40px rgba(212,175,55,0.4)' }}>
-              Explorar Colección <ChevronRight size={20} />
+              {t.hero.cta} <ChevronRight size={20} />
             </Link>
             <Link href="/nosotros" className="btn-glass" style={{ padding: '22px 50px', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '12px', color: 'white', border: '1px solid rgba(255,255,255,0.4)', borderRadius: '9999px' }}>
-              Quiénes Somos
+              {t.hero.ctaAbout}
             </Link>
           </div>
         </div>
@@ -182,23 +186,23 @@ export default function Home() {
         <div className="container scroll-animate fade-in-up" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '40px', textAlign: 'center' }}>
           <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
             <div style={{ background: 'rgba(212,175,55,0.1)', padding: '20px', borderRadius: '50%' }}><Truck size={32} color="var(--primary)" /></div>
-            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Alcance Global</h4>
-            <p style={{ opacity: 0.7 }}>Llevamos nuestra cultura a todo el mundo.</p>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>{t.trust.global}</h4>
+            <p style={{ opacity: 0.7 }}>{t.trust.globalDesc}</p>
           </div>
           <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
             <div style={{ background: 'rgba(212,175,55,0.1)', padding: '20px', borderRadius: '50%' }}><RefreshCw size={32} color="var(--primary)" /></div>
-            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Restauración</h4>
-            <p style={{ opacity: 0.7 }}>Extendemos la vida útil de tus zapatos.</p>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>{t.trust.repair}</h4>
+            <p style={{ opacity: 0.7 }}>{t.trust.repairDesc}</p>
           </div>
           <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
             <div style={{ background: 'rgba(212,175,55,0.1)', padding: '20px', borderRadius: '50%' }}><Lock size={32} color="var(--primary)" /></div>
-            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Precios Justos</h4>
-            <p style={{ opacity: 0.7 }}>Comercio directo con artesanos mexicanos.</p>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>{t.trust.price}</h4>
+            <p style={{ opacity: 0.7 }}>{t.trust.priceDesc}</p>
           </div>
           <div style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
             <div style={{ background: 'rgba(212,175,55,0.1)', padding: '20px', borderRadius: '50%' }}><Award size={32} color="var(--primary)" /></div>
-            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Identidad Propia</h4>
-            <p style={{ opacity: 0.7 }}>Diseños que reflejan nuestras raíces.</p>
+            <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>{t.trust.identity}</h4>
+            <p style={{ opacity: 0.7 }}>{t.trust.identityDesc}</p>
           </div>
         </div>
       </section>
@@ -209,14 +213,14 @@ export default function Home() {
       <section style={{ padding: '80px 24px', background: 'var(--background)' }}>
         <div className="container">
           <div className="scroll-animate fade-in-up" style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <h2 style={{ fontSize: '3rem', fontWeight: 800 }}>Nuestra <span className="text-gradient">Colección</span></h2>
-            <p style={{ opacity: 0.7, fontSize: '1.2rem', maxWidth: '600px', margin: '16px auto 0' }}>Los favoritos de nuestros clientes más exigentes.</p>
+            <h2 style={{ fontSize: '3rem', fontWeight: 800 }}>{t.collection.title} <span className="text-gradient">{t.collection.highlight}</span></h2>
+            <p style={{ opacity: 0.7, fontSize: '1.2rem', maxWidth: '600px', margin: '16px auto 0' }}>{t.collection.subtitle}</p>
           </div>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '32px' }}>
             {loadingProducts ? (
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
-                <div>Cargando productos...</div>
+                <div>{t.collection.loading}</div>
               </div>
             ) : bestsellers.length === 0 ? (
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
@@ -247,7 +251,7 @@ export default function Home() {
             )}
           </div>
           <div style={{ textAlign: 'center', marginTop: '48px' }}>
-            <Link href="/productos" className="btn-secondary" style={{ padding: '16px 32px', fontSize: '1.1rem' }}>Ver Todos Los Productos</Link>
+            <Link href="/productos" className="btn-secondary" style={{ padding: '16px 32px', fontSize: '1.1rem' }}>{t.collection.viewAll}</Link>
           </div>
         </div>
       </section>
@@ -256,9 +260,9 @@ export default function Home() {
       <section style={{ padding: '120px 24px', position: 'relative', zIndex: 2 }}>
         <div className="container">
           <div className="scroll-animate fade-in-up" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '60px', flexWrap: 'wrap', gap: '20px' }}>
-            <h2 style={{ fontSize: '3.5rem', fontWeight: 800, color: 'white', lineHeight: 1.1 }}>Artesanía de <br/><span className="text-gradient">Exportación</span></h2>
+            <h2 style={{ fontSize: '3.5rem', fontWeight: 800, color: 'white', lineHeight: 1.1 }}>{t.featured.title} <br/><span className="text-gradient">{t.featured.highlight}</span></h2>
             <Link href="/productos" className="link-hover-effect" style={{ fontWeight: 700, fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              Ver Catálogo Completo <ChevronRight size={20} />
+              {t.featured.viewCatalog} <ChevronRight size={20} />
             </Link>
           </div>
           
@@ -266,20 +270,20 @@ export default function Home() {
             <div className="luxury-card group scroll-animate fade-in-up" style={{ animationDelay: '0.2s' }}>
               <div className="luxury-card-img" style={{ backgroundImage: 'url(/bandera-mexicana.jpg)' }} />
               <div className="luxury-card-content">
-                <div className="badge">TRADICIÓN</div>
-                <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>Cultura Viva</h3>
-                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', marginBottom: '24px' }}>El equilibrio perfecto entre lo tradicional y lo moderno.</p>
-                <Link href="/productos" className="btn-glass">Adquirir Ahora</Link>
+                <div className="badge">{t.featured.card1Badge}</div>
+                <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>{t.featured.card1Title}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', marginBottom: '24px' }}>{t.featured.card1Desc}</p>
+                <Link href="/productos" className="btn-glass">{t.featured.buyNow}</Link>
               </div>
             </div>
             
             <div className="luxury-card group scroll-animate fade-in-up" style={{ animationDelay: '0.4s' }}>
               <div className="luxury-card-img" style={{ backgroundImage: 'url(/artesano-trabajando.jpg)' }} />
               <div className="luxury-card-content">
-                <div className="badge">IDENTIDAD</div>
-                <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>Legado Maestro</h3>
-                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', marginBottom: '24px' }}>Nuestra identidad en cada detalle de piel.</p>
-                <Link href="/productos" className="btn-glass">Adquirir Ahora</Link>
+                <div className="badge">{t.featured.card2Badge}</div>
+                <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white', marginBottom: '8px' }}>{t.featured.card2Title}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', marginBottom: '24px' }}>{t.featured.card2Desc}</p>
+                <Link href="/productos" className="btn-glass">{t.featured.buyNow}</Link>
               </div>
             </div>
           </div>
@@ -302,23 +306,21 @@ export default function Home() {
           </div>
           
           <div className="scroll-animate fade-in-up" style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column', gap: '32px', animationDelay: '0.3s' }}>
-            <div style={{ color: 'var(--primary)', fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase' }}>Raíces y Cultura</div>
-            <h2 style={{ fontSize: '4rem', fontWeight: 800, lineHeight: 1.1 }}>El Valor de lo <br/>Auténtico.</h2>
-            <p style={{ fontSize: '1.3rem', color: '#aaa', lineHeight: 1.8 }}>
-              Nuestros artesanos mexicanos imprimen su alma en cada producto. Al eliminar intermediarios, garantizamos un pago justo por su arte y te ofrecemos calidad excepcional a un precio competitivo.
-            </p>
+            <div style={{ color: 'var(--primary)', fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase' }}>{t.craftsmanship.tag}</div>
+            <h2 style={{ fontSize: '4rem', fontWeight: 800, lineHeight: 1.1 }}>{t.craftsmanship.title1} <br/>{t.craftsmanship.title2}</h2>
+            <p style={{ fontSize: '1.3rem', color: '#aaa', lineHeight: 1.8 }}>{t.craftsmanship.desc}</p>
             <div style={{ display: 'flex', gap: '24px', marginTop: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ background: 'rgba(212,175,55,0.1)', padding: '16px', borderRadius: '50%' }}><ShieldCheck size={24} color="var(--primary)" /></div>
-                <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>Cuidado y Reparación</span>
+                <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>{t.craftsmanship.badge1}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ background: 'rgba(212,175,55,0.1)', padding: '16px', borderRadius: '50%' }}><Award size={24} color="var(--primary)" /></div>
-                <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>Comercio Justo</span>
+                <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>{t.craftsmanship.badge2}</span>
               </div>
             </div>
             <Link href="/reparaciones" className="btn-primary" style={{ alignSelf: 'flex-start', marginTop: '24px' }}>
-              Conoce nuestro Taller
+              {t.craftsmanship.cta}
             </Link>
           </div>
         </div>
@@ -330,9 +332,9 @@ export default function Home() {
         <div className="container">
           <div className="scroll-animate fade-in-up" style={{ textAlign: 'center', marginBottom: '80px' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--primary)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '16px' }}>
-              <Star size={16} fill="var(--primary)" /> Voces de nuestros clientes
+              <Star size={16} fill="var(--primary)" /> {t.testimonials.tag}
             </div>
-            <h2 style={{ fontSize: '3rem', fontWeight: 800 }}>El Sello de Aprobación.</h2>
+            <h2 style={{ fontSize: '3rem', fontWeight: 800 }}>{t.testimonials.title}</h2>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
@@ -341,14 +343,12 @@ export default function Home() {
               <div style={{ display: 'flex', gap: '4px', color: 'var(--primary)', marginBottom: '24px' }}>
                 <Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" />
               </div>
-              <p style={{ fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '32px', opacity: 0.9 }}>
-                "La calidad de la piel es insuperable. Desde el primer momento que los usé, supe que estaba ante una verdadera obra maestra del diseño urbano."
-              </p>
+              <p style={{ fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '32px', opacity: 0.9 }}>{t.testimonials.t1}</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'url(https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80) center/cover' }} />
                 <div>
                   <h4 style={{ fontWeight: 700, fontSize: '1.1rem' }}>Carlos M.</h4>
-                  <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>Cliente Verificado</p>
+                  <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>{t.testimonials.verified}</p>
                 </div>
               </div>
             </div>
@@ -358,14 +358,12 @@ export default function Home() {
               <div style={{ display: 'flex', gap: '4px', color: 'var(--primary)', marginBottom: '24px' }}>
                 <Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" />
               </div>
-              <p style={{ fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '32px', opacity: 0.9 }}>
-                "Un servicio al cliente excepcional y un producto que supera cualquier expectativa. Los detalles dorados y la presentación son increíbles."
-              </p>
+              <p style={{ fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '32px', opacity: 0.9 }}>{t.testimonials.t2}</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'url(https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80) center/cover' }} />
                 <div>
                   <h4 style={{ fontWeight: 700, fontSize: '1.1rem' }}>Elena R.</h4>
-                  <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>Compradora de Golden Edition</p>
+                  <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>{t.testimonials.goldenBuyer}</p>
                 </div>
               </div>
             </div>
@@ -375,14 +373,12 @@ export default function Home() {
               <div style={{ display: 'flex', gap: '4px', color: 'var(--primary)', marginBottom: '24px' }}>
                 <Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" /><Star size={20} fill="currentColor" />
               </div>
-              <p style={{ fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '32px', opacity: 0.9 }}>
-                "Llevo usándolos a diario en la ciudad y siguen viéndose como nuevos. El nivel de artesanía realmente se nota en cada costura."
-              </p>
+              <p style={{ fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '32px', opacity: 0.9 }}>{t.testimonials.t3}</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'url(https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80) center/cover' }} />
                 <div>
                   <h4 style={{ fontWeight: 700, fontSize: '1.1rem' }}>David T.</h4>
-                  <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>Cliente Verificado</p>
+                  <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>{t.testimonials.verified}</p>
                 </div>
               </div>
             </div>
@@ -396,12 +392,12 @@ export default function Home() {
         <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', color: 'white', padding: '0 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px' }}>
           <Star size={64} color="var(--primary)" fill="var(--primary)" style={{ animation: 'pulse 2s infinite' }} />
           <h2 style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', fontWeight: 900, lineHeight: 1.1 }}>
-            Únete a la <br/>Exclusividad.
+            {t.cta.title1} <br/>{t.cta.title2}
           </h2>
-          <p style={{ fontSize: '1.3rem', maxWidth: '600px', opacity: 0.8 }}>Ingresa al club privado de Calzado del Pueblo y obtén acceso anticipado a nuestras piezas de colección limitadas.</p>
+          <p style={{ fontSize: '1.3rem', maxWidth: '600px', opacity: 0.8 }}>{t.cta.desc}</p>
           <div style={{ display: 'flex', width: '100%', maxWidth: '500px', gap: '12px', background: 'rgba(255,255,255,0.1)', padding: '8px', borderRadius: '99px', backdropFilter: 'blur(10px)' }}>
-            <input type="email" placeholder="Tu correo electrónico" style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: 'white', padding: '0 24px', fontSize: '1.1rem' }} />
-            <button className="btn-primary" style={{ borderRadius: '99px', padding: '16px 32px' }}>Suscribirse</button>
+            <input type="email" placeholder={t.cta.placeholder} style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: 'white', padding: '0 24px', fontSize: '1.1rem' }} />
+            <button className="btn-primary" style={{ borderRadius: '99px', padding: '16px 32px' }}>{t.cta.subscribe}</button>
           </div>
         </div>
       </section>

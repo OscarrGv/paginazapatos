@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useAppContext } from '@/context/AppContext';
+import { useTranslation } from '@/lib/translations';
 
 export default function ProductosPage() {
+  const { addToCart, user, setIsAuthModalOpen, language } = useAppContext();
+  const t = useTranslation(language);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -45,17 +48,17 @@ export default function ProductosPage() {
     <div className="container animate-fade-in-up" style={{ padding: '80px 24px', minHeight: '80vh' }}>
       <div style={{ textAlign: 'center', marginBottom: '60px' }}>
         <h1 style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '16px' }}>
-          Nuestra <span className="text-gradient">Colección</span>
+          {t.productsPage.title} <span className="text-gradient">{t.productsPage.highlight}</span>
         </h1>
         <p style={{ fontSize: '1.2rem', opacity: 0.7, maxWidth: '600px', margin: '0 auto' }}>
-          El mejor estilo urbano a tus pies. Diseños exclusivos y materiales premium.
+          {t.productsPage.subtitle}
         </p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '40px' }}>
         {products.length === 0 ? (
           <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '24px', opacity: 0.75 }}>
-            No se pudieron cargar los productos.
+            {t.productsPage.noProducts}
           </div>
         ) : (
           products.map((product, index) => (
@@ -80,7 +83,7 @@ export default function ProductosPage() {
               </div>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '8px' }}>{product.name}</h3>
               <p style={{ color: 'var(--primary)', fontWeight: 800, fontSize: '1.3rem', marginBottom: '24px', marginTop: 'auto' }}>${product.price.toFixed(2)}</p>
-              <button className="btn-secondary" style={{ width: '100%', fontWeight: 600 }}>Ver Detalles</button>
+              <button className="btn-secondary" style={{ width: '100%', fontWeight: 600 }}>{t.productsPage.viewDetails}</button>
             </div>
           ))
         )}
@@ -117,7 +120,8 @@ export default function ProductosPage() {
 }
 
 function ProductDetail({ product, onBack }) {
-  const { addToCart, user, setIsAuthModalOpen } = useAppContext();
+  const { addToCart, user, setIsAuthModalOpen, language } = useAppContext();
+  const t = useTranslation(language);
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [quantity, setQuantity] = useState(1);
   const [animating, setAnimating] = useState(false);
@@ -138,7 +142,7 @@ function ProductDetail({ product, onBack }) {
   return (
     <div className="container animate-fade-in-up" style={{ padding: '60px 24px' }}>
       <button onClick={onBack} className="back-btn" style={{ background: 'none', border: 'none', color: 'var(--foreground)', cursor: 'pointer', marginBottom: '40px', display: 'inline-flex', alignItems: 'center', gap: '8px', fontWeight: 600, fontSize: '1.1rem', padding: '8px 16px', borderRadius: '99px', transition: 'all 0.2s' }}>
-        ← Volver a productos
+        {t.productsPage.back}
       </button>
 
       <div className="glass-card" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '60px', padding: '48px', overflow: 'hidden', position: 'relative' }}>
@@ -170,7 +174,7 @@ function ProductDetail({ product, onBack }) {
           <p style={{ fontSize: '1.1rem', opacity: 0.7, lineHeight: 1.7 }}>{product.description}</p>
 
           <div style={{ padding: '24px', background: 'rgba(0,0,0,0.03)', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.05)' }}>
-            <h3 style={{ marginBottom: '16px', fontWeight: 700 }}>Talla:</h3>
+            <h3 style={{ marginBottom: '16px', fontWeight: 700 }}>{t.productsPage.size}</h3>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               {product.sizes.map(size => (
                 <button 
@@ -194,7 +198,7 @@ function ProductDetail({ product, onBack }) {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '24px', padding: '24px', background: 'rgba(0,0,0,0.03)', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.05)' }}>
-            <h3 style={{ fontWeight: 700, margin: 0 }}>Cantidad:</h3>
+            <h3 style={{ fontWeight: 700, margin: 0 }}>{t.productsPage.quantity}</h3>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', background: 'var(--surface)', padding: '8px', borderRadius: '12px', border: '1px solid var(--surface-border)' }}>
               <button onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(0,0,0,0.05)', border: 'none', color: 'var(--foreground)', cursor: 'pointer', fontSize: '1.2rem', fontWeight: 'bold' }}>-</button>
               <span style={{ fontSize: '1.2rem', fontWeight: 700, width: '30px', textAlign: 'center' }}>{quantity}</span>
@@ -208,7 +212,7 @@ function ProductDetail({ product, onBack }) {
             style={{ marginTop: 'auto', padding: '20px', fontSize: '1.3rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px' }}
             disabled={animating}
           >
-            {animating ? 'Añadiendo...' : 'Añadir al Carrito'}
+            {animating ? t.productsPage.adding : t.productsPage.addToCart}
           </button>
         </div>
       </div>
