@@ -2,8 +2,13 @@
 
 import Link from 'next/link';
 import { Heart, Globe, Users, TrendingUp, ShieldCheck, ChevronRight } from 'lucide-react';
+import { useAppContext } from '@/context/AppContext';
+import { useTranslation } from '@/lib/translations';
 
 export default function ImpactoSocial() {
+  const { language } = useAppContext();
+  const t = useTranslation(language);
+
   return (
     <div style={{ position: 'relative', overflowX: 'hidden', minHeight: '100vh', background: 'var(--foreground)', color: 'white' }}>
       
@@ -40,15 +45,15 @@ export default function ImpactoSocial() {
               background: 'rgba(212, 175, 55, 0.1)', color: 'var(--primary)', fontWeight: 700, fontSize: '0.9rem', 
               border: '1px solid rgba(212,175,55,0.4)', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '32px'
             }}>
-              <Heart size={14} /> Nuestro Compromiso
+              <Heart size={14} /> {t.impactPage.tag}
             </div>
             
             <h1 style={{ fontSize: 'clamp(3.5rem, 6vw, 5.5rem)', fontWeight: 900, lineHeight: 1.05, marginBottom: '24px' }}>
-              Cambiando vidas, <br/><span className="text-gradient">un par a la vez.</span>
+              {t.impactPage.title1} <br/><span className="text-gradient">{t.impactPage.title2}</span>
             </h1>
             
             <p style={{ fontSize: '1.25rem', color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }}>
-              En Calzado del Pueblo, no solo vendemos zapatos. Fomentamos el desarrollo económico de las comunidades artesanales en México, preservando nuestra riqueza cultural y asegurando que su labor sea valorada en el mercado global.
+              {t.impactPage.subtitle}
             </p>
           </div>
         </div>
@@ -63,9 +68,9 @@ export default function ImpactoSocial() {
               <div style={{ background: 'rgba(212,175,55,0.1)', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <Users size={30} color="var(--primary)" />
               </div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>Comercio Directo</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>{t.impactPage.card1Title}</h3>
               <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-                Trabajamos directamente con los artesanos, eliminando intermediarios que devalúan su trabajo. Esto garantiza que reciban un pago justo y digno por cada pieza que elaboran con sus manos.
+                {t.impactPage.card1Desc}
               </p>
             </div>
             
@@ -73,9 +78,9 @@ export default function ImpactoSocial() {
               <div style={{ background: 'rgba(212,175,55,0.1)', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <ShieldCheck size={30} color="var(--primary)" />
               </div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>Preservación Cultural</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>{t.impactPage.card2Title}</h3>
               <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-                Las técnicas de tejido y tratamiento de piel se han transmitido de generación en generación. Al darles un mercado global, evitamos que estas tradiciones invaluables desaparezcan.
+                {t.impactPage.card2Desc}
               </p>
             </div>
 
@@ -83,9 +88,9 @@ export default function ImpactoSocial() {
               <div style={{ background: 'rgba(212,175,55,0.1)', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <TrendingUp size={30} color="var(--primary)" />
               </div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>Desarrollo Económico</h3>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '16px' }}>{t.impactPage.card3Title}</h3>
               <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-                Una porción de nuestros ingresos se destina a mejorar las herramientas y los talleres de nuestros artesanos afiliados, elevando su calidad de vida y capacidad de producción.
+                {t.impactPage.card3Desc}
               </p>
             </div>
           </div>
@@ -94,12 +99,12 @@ export default function ImpactoSocial() {
             <div style={{ position: 'absolute', inset: 0, background: 'url(https://images.unsplash.com/photo-1595991209266-5e04278dc71f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80) center/cover', opacity: 0.15, zIndex: 0 }} />
             <div style={{ position: 'relative', zIndex: 1 }}>
               <Globe size={48} color="var(--primary)" style={{ margin: '0 auto 24px' }} />
-              <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '24px' }}>Hecho en México, <br/>Para el Mundo</h2>
+              <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '24px' }}>{t.impactPage.bannerTitle1} <br/>{t.impactPage.bannerTitle2}</h2>
               <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.8)', maxWidth: '600px', margin: '0 auto 32px', lineHeight: 1.6 }}>
-                Cada huarache y bota lleva impregnada la esencia de Veracruz y de México. Apoya el talento local y viste con el orgullo de nuestras raíces.
+                {t.impactPage.bannerDesc}
               </p>
               <Link href="/productos" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '16px 32px' }}>
-                Comprar y Apoyar <ChevronRight size={18} />
+                {t.impactPage.bannerCta} <ChevronRight size={18} />
               </Link>
             </div>
           </div>

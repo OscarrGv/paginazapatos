@@ -2,8 +2,13 @@
 
 import Link from 'next/link';
 import { Users, GraduationCap, Target, ChevronRight, HandMetal, Globe } from 'lucide-react';
+import { useAppContext } from '@/context/AppContext';
+import { useTranslation } from '@/lib/translations';
 
 export default function Nosotros() {
+  const { language } = useAppContext();
+  const t = useTranslation(language);
+
   return (
     <div style={{ position: 'relative', overflowX: 'hidden', minHeight: '100vh', background: 'var(--foreground)', color: 'white' }}>
       
@@ -27,15 +32,15 @@ export default function Nosotros() {
               background: 'rgba(212, 175, 55, 0.2)', color: 'var(--primary)', fontWeight: 800, fontSize: '0.9rem', 
               border: '1px solid rgba(212,175,55,0.5)', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '32px'
             }}>
-              <Users size={16} /> Orgullo ITVER
+              <Users size={16} /> {t.aboutPage.tag}
             </div>
             
             <h1 style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', fontWeight: 900, lineHeight: 1.1, marginBottom: '24px', textShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
-              El lado <span className="text-gradient">Humano</span><br/> del Diseño.
+              {t.aboutPage.title1} <span className="text-gradient">Humano</span><br/> {t.aboutPage.title2}
             </h1>
             
             <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.9)', lineHeight: 1.6, maxWidth: '700px', fontWeight: 500, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-              Somos estudiantes del Tecnológico de Veracruz con la visión de llevar el calzado artesanal mexicano hacia nuevos horizontes, dándole el valor y reconocimiento que realmente merece en el mercado global.
+              {t.aboutPage.subtitle}
             </p>
         </div>
       </section>
@@ -49,14 +54,14 @@ export default function Nosotros() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'center' }}>
               <div>
                 <div style={{ color: 'var(--primary)', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <GraduationCap size={20} /> Origen y Misión
+                  <GraduationCap size={20} /> {t.aboutPage.originTag}
                 </div>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '24px' }}>Nuestra Historia</h2>
+                <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '24px' }}>{t.aboutPage.originTitle}</h2>
                 <p style={{ fontSize: '1.1rem', color: '#ccc', lineHeight: 1.8, marginBottom: '16px' }}>
-                  Somos un equipo de <strong>alumnos del Tecnológico de Veracruz</strong>. A lo largo de nuestro desarrollo profesional, hemos observado con detenimiento un problema latente en nuestra cultura: mucho del increíble trabajo de los artesanos de calzado mexicano es mal aprovechado, mal pagado o carece de las plataformas adecuadas para destacar.
+                  {t.aboutPage.p1}
                 </p>
                 <p style={{ fontSize: '1.1rem', color: '#ccc', lineHeight: 1.8 }}>
-                  Nacimos de la inquietud de cambiar esta realidad. Queremos ser el puente entre las manos que crean obras de arte y un público que valora la calidad, la autenticidad y el comercio justo.
+                  {t.aboutPage.p2}
                 </p>
               </div>
               <div style={{ position: 'relative' }}>
@@ -64,7 +69,7 @@ export default function Nosotros() {
                 <div style={{ background: 'rgba(255,255,255,0.03)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', position: 'relative', zIndex: 1, backdropFilter: 'blur(10px)', textAlign: 'center' }}>
                   <img src="/itv-logo.png" alt="Instituto Tecnológico de Veracruz" style={{ width: '120px', marginBottom: '24px', filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))' }} />
                   <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '24px', color: 'var(--primary)', borderBottom: '1px solid rgba(212,175,55,0.2)', paddingBottom: '16px' }}>
-                    Equipo de Desarrollo
+                    {t.aboutPage.teamTitle}
                   </h3>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'left' }}>
                     {['Angelo Emmanuel Flores Montes', 'Oscar Gomez Vazquez', 'Esteban Santos Angulo', 'Arath Daniel Noriega Domínguez', 'Enrique Vega Mayer'].map((name, i) => (
@@ -84,25 +89,25 @@ export default function Nosotros() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'center' }}>
               <div style={{ order: 2 }}>
                 <div style={{ color: 'var(--primary)', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Target size={20} /> Visión
+                  <Target size={20} /> {t.aboutPage.visionTag}
                 </div>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '24px' }}>¿Qué Buscamos Impulsar?</h2>
+                <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '24px' }}>{t.aboutPage.visionTitle}</h2>
                 <p style={{ fontSize: '1.1rem', color: '#ccc', lineHeight: 1.8, marginBottom: '16px' }}>
-                  Nuestro propósito es <strong>introducir la artesanía mexicana al mercado global</strong>. Queremos darle una identidad sólida y premium a estos productos para que no sean vistos simplemente como mercancía, sino como piezas de diseño que reflejan nuestras raíces.
+                  {t.aboutPage.vDesc}
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '24px' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
                     <div style={{ background: 'rgba(212,175,55,0.1)', padding: '12px', borderRadius: '12px' }}><HandMetal size={24} color="var(--primary)" /></div>
                     <div>
-                      <h4 style={{ fontWeight: 700, fontSize: '1.1rem', marginBottom: '4px' }}>Comercio Justo</h4>
-                      <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: 1.5 }}>Asegurar que el artesano reciba el valor real de su trabajo, eliminando intermediarios abusivos y fomentando el crecimiento local.</p>
+                      <h4 style={{ fontWeight: 700, fontSize: '1.1rem', marginBottom: '4px' }}>{t.aboutPage.fairTrade}</h4>
+                      <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: 1.5 }}>{t.aboutPage.fairTradeDesc}</p>
                     </div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
                     <div style={{ background: 'rgba(212,175,55,0.1)', padding: '12px', borderRadius: '12px' }}><Globe size={24} color="var(--primary)" /></div>
                     <div>
-                      <h4 style={{ fontWeight: 700, fontSize: '1.1rem', marginBottom: '4px' }}>Competitividad Global</h4>
-                      <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: 1.5 }}>Vender a un precio competitivo ofreciendo servicios integrales, como el mantenimiento y reparación para extender la vida útil de cada par.</p>
+                      <h4 style={{ fontWeight: 700, fontSize: '1.1rem', marginBottom: '4px' }}>{t.aboutPage.globalComp}</h4>
+                      <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: 1.5 }}>{t.aboutPage.globalCompDesc}</p>
                     </div>
                   </div>
                 </div>
@@ -120,7 +125,7 @@ export default function Nosotros() {
           
           <div style={{ textAlign: 'center', marginTop: '80px' }}>
             <Link href="/" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '16px 32px' }}>
-              Volver al Inicio <ChevronRight size={18} />
+              {t.aboutPage.backHome} <ChevronRight size={18} />
             </Link>
           </div>
         </div>

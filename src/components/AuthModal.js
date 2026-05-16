@@ -4,13 +4,15 @@ import { useAppContext } from '@/context/AppContext';
 import { X } from 'lucide-react';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
+import { useTranslation } from '@/lib/translations';
 
 export default function AuthModal() {
-  const { isAuthModalOpen, setIsAuthModalOpen, login } = useAppContext();
+  const { isAuthModalOpen, setIsAuthModalOpen, login, language } = useAppContext();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const t = useTranslation(language);
 
   if (!isAuthModalOpen) return null;
 
@@ -68,10 +70,10 @@ export default function AuthModal() {
         </button>
 
         <h2 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '8px', textAlign: 'center' }}>
-          {isLogin ? 'Bienvenido' : 'Crear Cuenta'}
+          {isLogin ? t.auth.welcome : t.auth.createAccount}
         </h2>
         <p style={{ textAlign: 'center', opacity: 0.7, marginBottom: '32px' }}>
-          {isLogin ? 'Ingresa tus credenciales para continuar' : 'Únete a Calzado del Pueblo'}
+          {isLogin ? t.auth.subtitle : t.auth.subtitleRegister}
         </p>
 
         {error && (
@@ -83,28 +85,28 @@ export default function AuthModal() {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {!isLogin && (
             <input 
-              type="text" placeholder="Nombre completo" required className="input-premium"
+              type="text" placeholder={t.auth.fullName} required className="input-premium"
               value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
             />
           )}
           <input 
-            type="email" placeholder="Correo electrónico" required className="input-premium"
+            type="email" placeholder={t.auth.email} required className="input-premium"
             value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})}
           />
           <input 
-            type="password" placeholder="Contraseña" required className="input-premium"
+            type="password" placeholder={t.auth.password} required className="input-premium"
             value={formData.password} onChange={e => setFormData({...formData, password: e.target.value})}
           />
           
           <button type="submit" className="btn-primary" style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }} disabled={loading}>
-            {loading ? <div className="spinner" style={{ width: '24px', height: '24px', borderWidth: '2px' }}/> : (isLogin ? 'Iniciar Sesión' : 'Registrarse')}
+            {loading ? <div className="spinner" style={{ width: '24px', height: '24px', borderWidth: '2px' }}/> : (isLogin ? t.auth.login : t.auth.register)}
           </button>
         </form>
 
         <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '8px 0' }}>
             <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.2)' }} />
-            <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '1px' }}>o continuar con</span>
+            <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '1px' }}>{t.auth.orContinueWith}</span>
             <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.2)' }} />
           </div>
           
@@ -133,12 +135,12 @@ export default function AuthModal() {
 
         <div style={{ marginTop: '32px', textAlign: 'center' }}>
           <p style={{ opacity: 0.8 }}>
-            {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}
+            {isLogin ? t.auth.noAccount : t.auth.hasAccount}
             <button 
               onClick={() => { setIsLogin(!isLogin); setError(''); }} 
               style={{ background: 'none', border: 'none', color: 'var(--secondary)', fontWeight: 600, marginLeft: '8px', cursor: 'pointer' }}
             >
-              {isLogin ? 'Regístrate aquí' : 'Inicia Sesión'}
+              {isLogin ? t.auth.registerHere : t.auth.loginHere}
             </button>
           </p>
         </div>

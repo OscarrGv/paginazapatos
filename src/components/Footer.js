@@ -2,8 +2,13 @@
 
 import Link from 'next/link';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { useAppContext } from '@/context/AppContext';
+import { useTranslation } from '@/lib/translations';
 
 export default function Footer() {
+  const { language } = useAppContext();
+  const t = useTranslation(language);
+
   return (
     <footer style={{ background: 'var(--foreground)', color: 'white', paddingTop: '80px', paddingBottom: '40px', marginTop: 'auto' }}>
       <div className="container">
@@ -14,7 +19,7 @@ export default function Footer() {
               Calzado del <span className="text-gradient">Pueblo</span>
             </Link>
             <p style={{ opacity: 0.7, lineHeight: 1.6, marginBottom: '24px' }}>
-              Impulsando la artesanía mexicana hacia el mercado global. Diseño con identidad, precio justo y atención al detalle en cada par.
+              {t.footer.desc}
             </p>
             <div style={{ display: 'flex', gap: '16px', fontWeight: 600 }}>
               <a href="#" style={{ color: 'var(--primary)', transition: 'all 0.2s' }} className="hover-scale">
@@ -30,31 +35,31 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '24px', color: 'var(--primary)' }}>Enlaces Rápidos</h3>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '24px', color: 'var(--primary)' }}>{t.footer.quickLinks}</h3>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <li><Link href="/" className="footer-link">Inicio</Link></li>
-              <li><Link href="/productos" className="footer-link">Colección de Productos</Link></li>
-              <li><Link href="/reparaciones" className="footer-link">Servicio de Reparación</Link></li>
-              <li><Link href="/nosotros" className="footer-link">Sobre Nosotros</Link></li>
+              <li><Link href="/" className="footer-link">{t.nav.home}</Link></li>
+              <li><Link href="/productos" className="footer-link">{t.nav.products}</Link></li>
+              <li><Link href="/reparaciones" className="footer-link">{t.nav.repairs}</Link></li>
+              <li><Link href="/nosotros" className="footer-link">{t.nav.about}</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '24px', color: 'var(--primary)' }}>Atención al Cliente</h3>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '24px', color: 'var(--primary)' }}>{t.footer.customerService}</h3>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <li><Link href="#" className="footer-link">Preguntas Frecuentes</Link></li>
-              <li><Link href="#" className="footer-link">Políticas de Envío</Link></li>
-              <li><Link href="#" className="footer-link">Devoluciones</Link></li>
-              <li><Link href="#" className="footer-link">Guía de Tallas</Link></li>
+              <li><Link href="#" className="footer-link">{t.footer.faq}</Link></li>
+              <li><Link href="#" className="footer-link">{t.footer.shippingPolicy}</Link></li>
+              <li><Link href="#" className="footer-link">{t.footer.returns}</Link></li>
+              <li><Link href="#" className="footer-link">{t.footer.sizeGuide}</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '24px', color: 'var(--primary)' }}>Contacto</h3>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '24px', color: 'var(--primary)' }}>{t.footer.contact}</h3>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', opacity: 0.8 }}>
                 <MapPin size={20} color="var(--primary)" style={{ flexShrink: 0 }} />
-                <span>Av. Reforma 123, Zona Centro, CDMX 06000</span>
+                <span>Av. Reforma 123, CDMX 06000</span>
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: 0.8 }}>
                 <Phone size={20} color="var(--primary)" style={{ flexShrink: 0 }} />
@@ -70,10 +75,10 @@ export default function Footer() {
         </div>
 
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', opacity: 0.6, fontSize: '0.9rem' }}>
-          <p>&copy; {new Date().getFullYear()} Calzado del Pueblo. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Calzado del Pueblo. {t.footer.rights}</p>
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <Link href="#">Privacidad</Link>
-            <Link href="#">Términos</Link>
+            <Link href="#">{t.footer.privacy}</Link>
+            <Link href="#">{t.footer.terms}</Link>
             <div style={{ display: 'flex', gap: '8px', marginLeft: '16px', paddingLeft: '16px', borderLeft: '1px solid rgba(255,255,255,0.3)' }}>
               <span>💳 Visa</span>
               <span>• Mastercard</span>

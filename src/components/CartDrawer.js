@@ -3,12 +3,14 @@
 import { useAppContext } from '@/context/AppContext';
 import { X, Trash2, Plus, Minus, Truck } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTranslation } from '@/lib/translations';
 
 export default function CartDrawer() {
-  const { cart, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, user, setIsAuthModalOpen } = useAppContext();
+  const { cart, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, user, setIsAuthModalOpen, language } = useAppContext();
   const [shippingOptions, setShippingOptions] = useState([]);
   const [selectedShipping, setSelectedShipping] = useState(null);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const t = useTranslation(language);
 
   useEffect(() => {
     if (isCartOpen && shippingOptions.length === 0) {
@@ -80,7 +82,7 @@ export default function CartDrawer() {
         }}
       >
         <div style={{ padding: '24px', borderBottom: '1px solid var(--surface-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--primary)' }}>Tu Carrito</h2>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--primary)' }}>{t.cart.title}</h2>
           <button onClick={() => setIsCartOpen(false)} style={{ background: 'none', border: 'none', color: 'var(--foreground)', cursor: 'pointer' }}>
             <X size={24} />
           </button>
@@ -89,7 +91,7 @@ export default function CartDrawer() {
         <div style={{ flex: 1, overflowY: 'auto', padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {cart.length === 0 ? (
             <div style={{ textAlign: 'center', opacity: 0.6, marginTop: '40px' }}>
-              <p>Tu carrito está vacío.</p>
+              <p>{t.cart.empty}</p>
             </div>
           ) : (
             <>
@@ -99,7 +101,7 @@ export default function CartDrawer() {
                     <img src={item.image} alt={item.name} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px' }} />
                     <div style={{ flex: 1 }}>
                       <h4 style={{ fontWeight: 700, fontSize: '1.1rem' }}>{item.name}</h4>
-                      <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '8px' }}>Talla: {item.size} | ${item.price}</p>
+                      <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '8px' }}>{t.productsPage.size} {item.size} | ${item.price}</p>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'var(--background)', borderRadius: '6px', padding: '4px' }}>
                           <button onClick={() => updateQuantity(item.id, item.size, -1)} style={{ background: 'none', border: 'none', color: 'var(--foreground)', cursor: 'pointer' }}><Minus size={16}/></button>
@@ -117,7 +119,7 @@ export default function CartDrawer() {
 
               <div style={{ marginTop: '16px' }}>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Truck size={18} color="var(--primary)" /> Método de Envío
+                  <Truck size={18} color="var(--primary)" /> {t.cart.shippingMethod}
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {shippingOptions.map(opt => (
@@ -138,15 +140,15 @@ export default function CartDrawer() {
         {cart.length > 0 && (
           <div style={{ padding: '24px', borderTop: '1px solid var(--surface-border)', background: 'var(--background)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-              <span style={{ opacity: 0.8, fontWeight: 500 }}>Subtotal</span>
+              <span style={{ opacity: 0.8, fontWeight: 500 }}>{t.cart.subtotal}</span>
               <span style={{ fontWeight: 600 }}>${subtotal.toFixed(2)}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
-              <span style={{ opacity: 0.8, fontWeight: 500 }}>Envío ({selectedShipping?.name || '...'})</span>
+              <span style={{ opacity: 0.8, fontWeight: 500 }}>{t.cart.shipping} ({selectedShipping?.name || '...'})</span>
               <span style={{ fontWeight: 600 }}>${shippingPrice.toFixed(2)}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', fontSize: '1.3rem', fontWeight: 800 }}>
-              <span>Total</span>
+              <span>{t.cart.total}</span>
               <span className="text-gradient">${total.toFixed(2)}</span>
             </div>
             <button
@@ -155,7 +157,7 @@ export default function CartDrawer() {
               className="btn-primary"
               style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '16px', opacity: isCheckingOut ? 0.7 : 1 }}
             >
-              {isCheckingOut ? 'Redirigiendo...' : 'Proceder al Pago'}
+              {isCheckingOut ? t.cart.redirecting : t.cart.checkout}
             </button>
           </div>
         )}

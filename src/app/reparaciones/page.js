@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useAppContext } from '@/context/AppContext';
 import { Check, ArrowRight } from 'lucide-react';
+import { useTranslation } from '@/lib/translations';
 
 export default function ReparacionesPage() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedServices, setSelectedServices] = useState([]);
-  const { user, setIsAuthModalOpen } = useAppContext();
+  const { user, setIsAuthModalOpen, language } = useAppContext();
+  const t = useTranslation(language);
 
   useEffect(() => {
     fetch('/api/services')
@@ -52,7 +54,7 @@ export default function ReparacionesPage() {
       return;
     }
     if (selectedServices.length === 0) {
-      alert('Por favor selecciona al menos un servicio.');
+      alert(t.repairsPage.selectServiceAlert);
       return;
     }
 
@@ -74,7 +76,7 @@ export default function ReparacionesPage() {
       const data = await res.json();
       
       if (data.success) {
-        alert(`¡Cotización solicitada con éxito!\nHemos enviado un correo a ${user.email} con las instrucciones paso a paso sobre cómo y dónde entregar tu calzado.`);
+        alert(t.repairsPage.successMsg);
         setSelectedServices([]);
       } else {
         alert(data.error || 'Hubo un problema al solicitar la cotización.');
@@ -99,13 +101,13 @@ export default function ReparacionesPage() {
     <div className="container animate-fade-in-up" style={{ padding: '80px 24px', minHeight: '80vh' }}>
       <div style={{ textAlign: 'center', marginBottom: '80px', maxWidth: '800px', margin: '0 auto 80px' }}>
         <div style={{ display: 'inline-block', padding: '6px 16px', borderRadius: '99px', background: 'rgba(212,175,55,0.1)', color: 'var(--secondary)', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '1px', marginBottom: '24px' }}>
-          TALLER ARTESANAL
+          {t.repairsPage.tag}
         </div>
         <h1 style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '24px', lineHeight: 1.1 }}>
-          Dale <span className="text-gradient">Vida Nueva</span> a tus Zapatos
+          {t.repairsPage.title1} <span className="text-gradient">Vida Nueva</span> {t.repairsPage.title2}
         </h1>
         <p style={{ fontSize: '1.2rem', opacity: 0.7, lineHeight: 1.6 }}>
-          Nuestros maestros zapateros restauran tu calzado favorito con técnicas artesanales y materiales de la más alta calidad. Selecciona los servicios que necesitas y obtén una cotización al instante.
+          {t.repairsPage.subtitle}
         </p>
       </div>
 
@@ -114,7 +116,7 @@ export default function ReparacionesPage() {
         {/* Catálogo */}
         <div>
           <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            Servicios Disponibles
+            {t.repairsPage.availableServices}
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {services.map((service, index) => (
@@ -151,12 +153,12 @@ export default function ReparacionesPage() {
           <div className="glass-card summary-card" style={{ padding: '40px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)', zIndex: 0 }}></div>
             
-            <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '32px', position: 'relative', zIndex: 1 }}>Resumen de Cotización</h2>
+            <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '32px', position: 'relative', zIndex: 1 }}>{t.repairsPage.summaryTitle}</h2>
             
             <div style={{ position: 'relative', zIndex: 1 }}>
               {selectedServices.length === 0 ? (
                 <div style={{ padding: '32px 0', textAlign: 'center', opacity: 0.5 }}>
-                  <p style={{ fontStyle: 'italic', marginBottom: '24px' }}>Selecciona servicios del catálogo para ver el total.</p>
+                  <p style={{ fontStyle: 'italic', marginBottom: '24px' }}>{t.repairsPage.emptySummary}</p>
                 </div>
               ) : (
                 <div style={{ marginBottom: '32px', display: 'flex', flexDirection: 'column', gap: '16px', background: 'rgba(0,0,0,0.02)', padding: '24px', borderRadius: '12px' }}>
@@ -170,7 +172,7 @@ export default function ReparacionesPage() {
               )}
 
               <div style={{ borderTop: '2px solid var(--surface-border)', paddingTop: '32px', marginBottom: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '1.2rem', fontWeight: 600 }}>Total Estimado</span>
+                <span style={{ fontSize: '1.2rem', fontWeight: 600 }}>{t.repairsPage.estimatedTotal}</span>
                 <span className="text-gradient" style={{ fontSize: '2.5rem', fontWeight: 800 }}>${total.toFixed(2)}</span>
               </div>
 
@@ -181,10 +183,10 @@ export default function ReparacionesPage() {
                   style={{ padding: '20px', fontSize: '1.2rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', opacity: selectedServices.length === 0 || isSubmitting ? 0.7 : 1 }}
                   disabled={selectedServices.length === 0 || isSubmitting}
                 >
-                  {isSubmitting ? <span className="spinner" style={{ width: '24px', height: '24px', borderWidth: '2px', borderColor: 'white', borderTopColor: 'transparent' }}/> : <><ArrowRight size={20} /> Solicitar Servicio</>}
+                  {isSubmitting ? <span className="spinner" style={{ width: '24px', height: '24px', borderWidth: '2px', borderColor: 'white', borderTopColor: 'transparent' }}/> : <><ArrowRight size={20} /> {t.repairsPage.requestService}</>}
                 </button>
                 <p style={{ fontSize: '0.9rem', opacity: 0.6, textAlign: 'center', background: 'rgba(0,0,0,0.03)', padding: '12px', borderRadius: '8px' }}>
-                  {user ? `Confirmación a: ${user.email}` : 'Inicia sesión para solicitar el servicio.'}
+                  {user ? `${t.repairsPage.confirmationTo} ${user.email}` : t.repairsPage.loginToRequest}
                 </p>
               </form>
             </div>
