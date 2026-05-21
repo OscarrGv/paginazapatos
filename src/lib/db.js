@@ -12,7 +12,12 @@ export const PRODUCT_SEED = [
   { name: 'Huarache Clásico Tejido', price: 85.00, image: '/huarache-clasico.png', description: 'Huaraches tradicionales mexicanos tejidos a mano por artesanos veracruzanos. Piel 100% natural.', sizes: '23,24,25,26,27,28' },
   { name: 'Sandalia de Piel Fina', price: 95.00, image: '/sandalia-fina.png', description: 'Sandalia artesanal con acabados finos y detalles autóctonos que resaltan nuestra cultura.', sizes: '22,23,24,25,26,27' },
   { name: 'Bota Artesanal de Trabajo', price: 120.00, image: '/bota-trabajo.png', description: 'Botas de piel genuina, cosidas a mano y diseñadas para durar toda la vida con el mantenimiento adecuado.', sizes: '25,26,27,28,29,30' },
-  { name: 'Huarache Cruzado', price: 89.00, image: '/huarache-cruzado.png', description: 'Un diseño cómodo y fresco con correas de cuero entrelazadas al estilo tradicional.', sizes: '24,25,26,27,28' }
+  { name: 'Huarache Cruzado', price: 89.00, image: '/huarache-cruzado.png', description: 'Un diseño cómodo y fresco con correas de cuero entrelazadas al estilo tradicional.', sizes: '24,25,26,27,28' },
+  { name: 'Botín Vaquero de Piel', price: 145.00, image: '/botin-vaquero.png', description: 'Botín vaquero con detalles grabados a mano, fabricado en piel 100% natural, resistente y elegante.', sizes: '25,26,27,28,29' },
+  { name: 'Mocasín Artesanal Confort', price: 75.00, image: '/mocasin-artesanal.png', description: 'Mocasín ligero y flexible, ideal para uso diario. Cosido a mano para máxima durabilidad y confort.', sizes: '24,25,26,27,28' },
+  { name: 'Zapato Oxford Clásico', price: 110.00, image: '/zapato-oxford.png', description: 'Zapato de vestir estilo Oxford con acabado pulido. El calce perfecto para ocasiones formales y oficina.', sizes: '25,26,27,28,29' },
+  { name: 'Huarache Pata de Gallo', price: 65.00, image: '/huarache-pata-gallo.png', description: 'El diseño más fresco y tradicional para climas cálidos, con suela resistente de llanta reciclada.', sizes: '23,24,25,26,27' },
+  { name: 'Bota de Montaña Reforzada', price: 135.00, image: '/bota-montana.png', description: 'Bota robusta con suela antideslizante y soporte de tobillo, pensada para senderismo y uso rudo.', sizes: '26,27,28,29' }
 ];
 
 export const SERVICE_SEED = [
