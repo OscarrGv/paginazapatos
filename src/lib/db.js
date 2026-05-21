@@ -122,6 +122,53 @@ export async function initDB() {
           verification_token TEXT
         )
       `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS orders (
+          id SERIAL PRIMARY KEY,
+          user_id INTEGER,
+          user_email TEXT NOT NULL,
+          shipping_name TEXT NOT NULL,
+          shipping_price REAL NOT NULL,
+          payment_method TEXT NOT NULL,
+          total REAL NOT NULL,
+          status TEXT DEFAULT 'pending',
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+      `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS order_items (
+          id SERIAL PRIMARY KEY,
+          order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+          product_id INTEGER,
+          product_name TEXT NOT NULL,
+          product_price REAL NOT NULL,
+          size TEXT NOT NULL,
+          quantity INTEGER NOT NULL
+        )
+      `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS service_orders (
+          id SERIAL PRIMARY KEY,
+          user_id INTEGER,
+          user_email TEXT NOT NULL,
+          total REAL NOT NULL,
+          status TEXT DEFAULT 'requested',
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+      `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS service_order_items (
+          id SERIAL PRIMARY KEY,
+          service_order_id INTEGER REFERENCES service_orders(id) ON DELETE CASCADE,
+          service_id INTEGER,
+          service_name TEXT NOT NULL,
+          service_price REAL NOT NULL
+        )
+      `;
     } else {
       await sql`
         CREATE TABLE IF NOT EXISTS products (
@@ -153,6 +200,55 @@ export async function initDB() {
           verification_token TEXT
         )
       `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS orders (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_id INTEGER,
+          user_email TEXT NOT NULL,
+          shipping_name TEXT NOT NULL,
+          shipping_price REAL NOT NULL,
+          payment_method TEXT NOT NULL,
+          total REAL NOT NULL,
+          status TEXT DEFAULT 'pending',
+          created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+      `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS order_items (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          order_id INTEGER,
+          product_id INTEGER,
+          product_name TEXT NOT NULL,
+          product_price REAL NOT NULL,
+          size TEXT NOT NULL,
+          quantity INTEGER NOT NULL,
+          FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE
+        )
+      `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS service_orders (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_id INTEGER,
+          user_email TEXT NOT NULL,
+          total REAL NOT NULL,
+          status TEXT DEFAULT 'requested',
+          created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+      `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS service_order_items (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          service_order_id INTEGER,
+          service_id INTEGER,
+          service_name TEXT NOT NULL,
+          service_price REAL NOT NULL,
+          FOREIGN KEY(service_order_id) REFERENCES service_orders(id) ON DELETE CASCADE
+        )
+      `;
     }
 
     const counts = await sql`SELECT COUNT(*) as count FROM products`;
@@ -167,8 +263,6 @@ export async function initDB() {
         await sql`INSERT INTO services (name, description, price) VALUES (${service.name}, ${service.description}, ${service.price})`;
       }
     }
-
-
   })();
 
   try {

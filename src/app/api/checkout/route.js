@@ -1,91 +1,78 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import sql, { initDB } from '@/lib/db';
+import { sendOrderConfirmationMail } from '@/lib/mail';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
   try {
-    const { cartItems, userInfo, shippingMethod, total } = await request.json();
+    await initDB();
+    const { cartItems, userInfo, shippingMethod, total, paymentMethod, cardInfo } = await request.json();
 
     if (!cartItems || cartItems.length === 0) {
       return NextResponse.json({ error: 'El carrito está vacío' }, { status: 400 });
     }
 
-    // Enviar correo de confirmación de pedido usando nodemailer
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS && userInfo?.email) {
-      try {
-        const transporter = nodemailer.createTransport({
-          service: 'gmail',
-          auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-          }
-        });
-
-        const itemsHtml = cartItems.map(item => 
-          `<tr>
-            <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.name} (Talla: ${item.size}) x${item.quantity}</td>
-            <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">$${(item.price * item.quantity).toFixed(2)}</td>
-          </tr>`
-        ).join('');
-
-        const shippingHtml = shippingMethod ? `
-          <tr>
-            <td style="padding: 10px; text-align: right; font-weight: bold;">Envío (${shippingMethod.name}):</td>
-            <td style="padding: 10px; text-align: right;">$${shippingMethod.price.toFixed(2)}</td>
-          </tr>
-        ` : '';
-
-        const mailOptions = {
-          from: `"Calzado del Pueblo" <${process.env.EMAIL_USER}>`,
-          to: userInfo.email,
-          subject: `Confirmación de Pedido - Calzado del Pueblo`,
-          html: `
-            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-              <h2 style="color: #d4af37; text-align: center;">¡Gracias por tu pedido, ${userInfo.name}!</h2>
-              <p style="font-size: 16px;">Hemos recibido tu solicitud de pedido correctamente. A continuación te mostramos el desglose de tu compra simulada.</p>
-              
-              <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-                <thead>
-                  <tr style="background: #f5f5f5;">
-                    <th style="padding: 10px; text-align: left;">Producto</th>
-                    <th style="padding: 10px; text-align: right;">Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${itemsHtml}
-                </tbody>
-                <tfoot>
-                  ${shippingHtml}
-                  <tr>
-                    <td style="padding: 10px; text-align: right; font-weight: bold;">Total Pagado:</td>
-                    <td style="padding: 10px; text-align: right; font-weight: bold; color: #d4af37; font-size: 1.2rem;">$${total.toFixed(2)}</td>
-                  </tr>
-                </tfoot>
-              </table>
-
-              <div style="text-align: center; margin-top: 30px;">
-                <p style="background-color: #f8f9fa; color: #333; padding: 12px 24px; border-radius: 5px; font-weight: bold; display: inline-block; border: 1px solid #ddd;">
-                  Simulación de Pago Exitosa ✅
-                </p>
-              </div>
-
-              <p style="text-align: center; color: #666; font-size: 14px; margin-top: 30px;">Si tienes alguna duda, responde a este correo.</p>
-            </div>
-          `
-        };
-
-        await transporter.sendMail(mailOptions);
-        console.log('Correo de confirmación enviado a:', userInfo.email);
-      } catch (emailError) {
-        console.error('Error enviando correo de confirmación:', emailError);
-      }
+    if (!userInfo || !userInfo.email) {
+      return NextResponse.json({ error: 'Usuario no autenticado o correo no proporcionado' }, { status: 400 });
     }
 
-    // Retornamos directamente la URL de éxito para simular que el pago ya se completó
+    // 1. Obtener ID del usuario si está registrado en la base de datos
+    let userId = null;
+    try {
+      const users = await sql`SELECT id FROM users WHERE email = ${userInfo.email}`;
+      if (users && users.length > 0) {
+        userId = users[0].id;
+      }
+    } catch (dbErr) {
+      console.warn('No se pudo encontrar el usuario en la BD, continuando como invitado:', dbErr.message);
+    }
+
+    // 2. Insertar el pedido principal
+    const shippingName = shippingMethod?.name || 'Estándar';
+    const shippingPrice = shippingMethod?.price || 0;
+    const finalPaymentMethod = paymentMethod || 'card';
+
+    const orderResult = await sql`
+      INSERT INTO orders (user_id, user_email, shipping_name, shipping_price, payment_method, total, status)
+      VALUES (${userId}, ${userInfo.email}, ${shippingName}, ${shippingPrice}, ${finalPaymentMethod}, ${total}, 'pending')
+      RETURNING id
+    `;
+
+    if (!orderResult || orderResult.length === 0) {
+      throw new Error('No se pudo registrar la orden principal en la base de datos.');
+    }
+
+    const orderId = orderResult[0].id;
+
+    // 3. Insertar los ítems de la compra
+    for (const item of cartItems) {
+      await sql`
+        INSERT INTO order_items (order_id, product_id, product_name, product_price, size, quantity)
+        VALUES (${orderId}, ${item.id}, ${item.name}, ${item.price}, ${item.size}, ${item.quantity})
+      `;
+    }
+
+    // 4. Enviar correo de confirmación de pedido usando nuestro mail helper
+    const orderData = {
+      id: orderId,
+      shipping_name: shippingName,
+      shipping_price: shippingPrice,
+      payment_method: finalPaymentMethod,
+      total: total
+    };
+
+    await sendOrderConfirmationMail({
+      order: orderData,
+      items: cartItems,
+      user: userInfo
+    });
+
+    // Retornamos éxito e ID del pedido
     return NextResponse.json({ 
       success: true, 
-      url: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/?success=true`
+      orderId: orderId,
+      message: 'Pedido confirmado exitosamente.'
     });
   } catch (error) {
     console.error('Error procesando checkout:', error);

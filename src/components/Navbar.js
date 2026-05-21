@@ -124,7 +124,14 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           {user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="hidden-mobile">
-              <span style={{ fontSize: '0.95rem', fontWeight: 500, color: textColor }}>{t.nav.hello}, {user.name}</span>
+              <Link href="/historial" style={{ fontSize: '0.95rem', fontWeight: 600, color: textColor, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }} className="nav-link" title="Ver mis pedidos">
+                <span>👤</span> {user.name}
+              </Link>
+              {(user.email.toLowerCase().includes('admin') || user.email === 'oscar@calzadodelpueblo.com') && (
+                <Link href="/admin" style={{ fontSize: '0.75rem', fontWeight: 700, padding: '4px 8px', borderRadius: '6px', background: 'var(--primary)', color: 'white', textDecoration: 'none', letterSpacing: '0.5px' }}>
+                  ADMIN
+                </Link>
+              )}
               <button onClick={logout} style={{ background: 'rgba(239, 68, 68, 0.1)', border: 'none', color: 'var(--error)', cursor: 'pointer', padding: '8px', borderRadius: '50%', transition: 'all 0.2s' }} title={t.nav.logout} className="hover-scale">
                 <LogOut size={18} />
               </button>
@@ -178,11 +185,20 @@ export default function Navbar() {
           
           <div style={{ marginTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             {user ? (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '16px', background: 'rgba(212,175,55,0.05)', borderRadius: '12px' }}>
-                <span style={{ fontWeight: 600, color: 'var(--foreground)' }}>{user.name}</span>
-                <button onClick={logout} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--error)', background: 'none', border: 'none', fontWeight: 600, cursor: 'pointer' }}>
-                  {t.nav.logout} <LogOut size={18} />
-                </button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', padding: '16px', background: 'rgba(212,175,55,0.05)', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                  <Link href="/historial" style={{ fontWeight: 600, color: 'var(--foreground)', textDecoration: 'none' }}>
+                    👤 {user.name} (Mis Pedidos)
+                  </Link>
+                  <button onClick={logout} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--error)', background: 'none', border: 'none', fontWeight: 600, cursor: 'pointer' }}>
+                    {t.nav.logout} <LogOut size={18} />
+                  </button>
+                </div>
+                {(user.email.toLowerCase().includes('admin') || user.email === 'oscar@calzadodelpueblo.com') && (
+                  <Link href="/admin" style={{ display: 'block', textAlign: 'center', fontWeight: 700, padding: '10px', borderRadius: '8px', background: 'var(--primary)', color: 'white', textDecoration: 'none', fontSize: '0.9rem' }}>
+                    Panel Administrador
+                  </Link>
+                )}
               </div>
             ) : (
               <button onClick={() => setIsAuthModalOpen(true)} className="btn-primary" style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', padding: '16px' }}>

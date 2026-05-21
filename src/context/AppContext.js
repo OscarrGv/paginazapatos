@@ -54,6 +54,11 @@ export function AppProvider({ children }) {
     });
   };
 
+  const clearCart = () => {
+    setCart([]);
+    localStorage.removeItem('cart');
+  };
+
   const updateQuantity = (id, size, delta) => {
     setCart(prev => {
       const newCart = prev.map(item => {
@@ -155,7 +160,7 @@ export function AppProvider({ children }) {
   return (
     <SessionProvider>
       <AppContext.Provider value={{
-        cart, addToCart, removeFromCart, updateQuantity,
+        cart, addToCart, removeFromCart, updateQuantity, clearCart,
         isCartOpen, setIsCartOpen,
         user, setUser, login, register, logout,
         isAuthModalOpen, setIsAuthModalOpen,
